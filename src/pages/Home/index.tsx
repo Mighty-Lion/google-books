@@ -3,10 +3,9 @@ import { useEffect, useState } from 'react';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
 
 export default function Home() {
-  // const apiUrl = 'https://www.googleapis.com/books/v1/volumes/115151515151';
-  // const apiUrl = 'https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&'
-   const apiUrl = 'https://www.googleapis.com/books/v1/volumes'
-  const apiKey = 'AIzaSyBWdD2QpIiQ_AbBmwLNeBHSTE2rY1zu-Uw'
+  const apiUrl = 'https://www.googleapis.com/books/v1/volumes';
+  const apiKey = 'AIzaSyBWdD2QpIiQ_AbBmwLNeBHSTE2rY1zu-Uw';
+  const searchTerm = 'flowers';
 
   // const savedPosts = localStorage.getItem('savedPosts');
   // const parsedPosts = savedPosts && JSON.parse(savedPosts);
@@ -19,19 +18,18 @@ export default function Home() {
   const testT = {
     searchTerm: '',
     printType: 'all',
-		bookType: 'full'
-  }
+    bookType: 'full',
+  };
   async function fetchData() {
     try {
-
-      // const getUrl = `${apiUrl}?key=${apiKey}&langRestrict=en&maxResults=40&orderBy=relevance&q=${testT.searchTerm}&filter=${testT.bookType}&printType=${testT.printType}`
-      const getUrl = `${apiUrl}?q=inauthor:keyes&key=${apiKey}`
-      console.log(getUrl)
-
       setIsFetching(true);
-      const response = await axios(getUrl);
+      const response = await axios.get(apiUrl, {
+        params: {
+          q: `${searchTerm}+inauthor:keyes`,
+          key: `${apiKey}`,
+        },
+      });
       setBooks(response.data);
-      console.log('response.data', response.data);
     } catch (error) {
       let errorMessage = 'Failed to do something exceptional';
       if (error instanceof Error) {
@@ -48,6 +46,6 @@ export default function Home() {
     fetchData();
   }, []);
 
-  console.log('books', books)
+  console.log('books', books);
   return <></>;
 }
