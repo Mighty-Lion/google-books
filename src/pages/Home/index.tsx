@@ -13,7 +13,7 @@ export default function Home() {
   const toastNotifications = useToastNotifications();
 
   // const [posts, setPosts] = useState<IPostProps[]>(parsedPosts || []);
-  const [posts, setPosts] = useState([]);
+  const [books, setBooks] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
 
   const testT = {
@@ -30,7 +30,7 @@ export default function Home() {
 
       setIsFetching(true);
       const response = await axios(getUrl);
-      setPosts(response.data);
+      setBooks(response.data);
       console.log('response.data', response.data);
     } catch (error) {
       let errorMessage = 'Failed to do something exceptional';
@@ -48,6 +48,6 @@ export default function Home() {
     fetchData();
   }, []);
 
-
+  console.log('books', books)
   return <></>;
 }
