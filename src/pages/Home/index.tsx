@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
+import { SearchSection } from '@/components/SearchSection';
 
 export default function Home() {
   const apiUrl = 'https://www.googleapis.com/books/v1/volumes';
@@ -47,5 +48,9 @@ export default function Home() {
   }, []);
 
   console.log('books', books);
-  return <></>;
+  return (
+    <>
+      <SearchSection/>
+    </>
+  );
 }
