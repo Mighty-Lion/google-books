@@ -20,7 +20,7 @@ body {
     width:100vw;
     overflow-x: hidden;
     overflow-y: visible;
-    background: #141C24;
+    background: var(--color-white-0);
 
 }
 
