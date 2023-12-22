@@ -1,29 +1,31 @@
 import styled from '@emotion/styled';
-import { getBreakpoint } from '../../Breakpoinst';
+import { getBreakpoint } from '@/Breakpoinst';
 
 export const Wrapper = styled.div`
-  width: 100vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  width: 100%;
+  min-width: 100vw;
+  height: 100%;
+  min-height: 100vh;
 `;
 export const Container = styled.div`
-  max-width: 1220px;
+  flex: 1 0 auto;
+  max-width: 1440px;
   width: 100%;
-  margin-right: auto;
-  margin-left: auto;
   position: relative;
-  padding-left: 20px;
-  padding-right: 20px;
-
-  @media (max-width: ${getBreakpoint('TABLET_M', 'down')}) {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  @media (max-width: ${getBreakpoint('MOBILE_M', 'down')}) {
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-`;
-
-export const ContentWrapper = styled(Container)`
-  padding-top: 50px;
+  // padding-left: 56px;
+  // padding-right: 56px;
+	//
+  // @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
+  //   padding-left: 10px;
+  //   padding-right: 10px;
+  // }
+	//
+  // @media (max-width: ${getBreakpoint('MOBILE_M', 'down')}) {
+  //   padding-left: 5px;
+  //   padding-right: 5px;
+  // }
 `;

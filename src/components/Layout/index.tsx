@@ -1,14 +1,10 @@
-import { PropsWithChildren } from 'react';
-import { Header } from './partials/Header';
-import { ContentWrapper, Wrapper } from './index.styles';
-import { Footer } from './partials/Footer';
+import React, { PropsWithChildren } from 'react';
+import { Container, Wrapper } from './index.styles';
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
     <Wrapper>
-      <Header />
-      <ContentWrapper as="main">{children}</ContentWrapper>
-      <Footer />
+      <Container as="main">{children}</Container>
     </Wrapper>
   );
 }
