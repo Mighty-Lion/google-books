@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 `;
 export const Container = styled.div`
   flex: 1 0 auto;
-  max-width: 1440px;
+  //max-width: 1440px;
   width: 100%;
   position: relative;
   // padding-left: 56px;
