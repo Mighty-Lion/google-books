@@ -35,11 +35,19 @@ export const SearchForm = styled.div`
   display: grid;
   grid-template-areas:
     'input input'
-    'categoties-select sorting-select';
+    'categories-select sorting-select';
+  grid-gap: 30px;
   margin: 30px auto 0 auto;
   padding: 0 50px;
   width: 100%;
-  max-width: 50%;
+
+  @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
+    grid-template-areas:
+      'input'
+      'categories-select'
+      'sorting-select';
+    padding: 0;
+  }
 `;
 
 export const SearchInputWrapper = styled.div<{
@@ -54,13 +62,13 @@ export const SearchInputWrapper = styled.div<{
   height: 50px;
   overflow: hidden;
   border-radius: 5px;
-	transition: 0.5s all;
+  transition: 0.5s all;
   ${({ isFocused }) =>
     isFocused &&
     `
       box-shadow: 0 4px 4px 0 var(--color-blue-400);
   `};
-  
+
   ${({ isHovered }) =>
     isHovered &&
     `
@@ -102,13 +110,13 @@ export const SearchInputWrapper = styled.div<{
     width: 50px;
     outline: none;
     cursor: pointer;
-		transition: 0.5s all;
+    transition: 0.5s all;
 
     &:focus,
     &:hover {
       background: var(--color-blue-400);
     }
-    
+
     &:active {
       background: var(--color-blue-500);
     }
