@@ -24,7 +24,7 @@ export const CustomSelectWrapper = styled.div<{ gridArea: string | undefined }>`
     font-family: Roboto, sans-serif;
     font-weight: normal;
     font-style: normal;
-    font-size: 15px;
+    font-size: 1.15rem;
     color: var(--color-white-0);
   }
 
@@ -36,7 +36,7 @@ export const CustomSelectWrapper = styled.div<{ gridArea: string | undefined }>`
     /*  other styles for aesthetics */
     width: 100%;
     font-size: 1.15rem;
-    padding: 0.675em 6em 0.675em 1em;
+    padding: 0.675em 5em 0.675em 1em;
     background-color: #fff;
     border: 1px solid #caced1;
     border-radius: 0.25rem;
