@@ -1,19 +1,22 @@
-import { useState } from 'react';
-import SearchIcon from '@/assets/images/svg/search.svg';
+import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 import {
   HeadingWrapper,
   SearchForm,
   SearchFormContainer,
   SearchFormWrapper,
-  SearchInputWrapper,
 } from '@/components/SearchSection/index.styles';
 import { Heading } from '@/components/Heading';
 import { CustomSelect } from '@/components/CustomSelect';
+import { SearchInput } from '../SearchInput';
 
-export function SearchSection() {
-  const [isFocused, setIsFocused] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
+export interface ISearchSectionProps {
+  handleSubmit?: FormEventHandler<HTMLFormElement>;
+  handleChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement>;
+}
+export function SearchSection({
+  handleSubmit,
+  handleChange,
+}: ISearchSectionProps) {
   const categoryOptions = [
     { optionValue: 'all', optionLabel: 'All' },
     { optionValue: 'art', optionLabel: 'Art' },
@@ -36,30 +39,20 @@ export function SearchSection() {
           <Heading>Search for books</Heading>
         </HeadingWrapper>
         <SearchForm>
-          <SearchInputWrapper isFocused={isFocused} isHovered={isHovered}>
-            <input
-              id="search"
-              placeholder="Введите поисковой запрос"
-              onMouseOver={() => setIsHovered(true)}
-              onMouseOut={() => setIsHovered(false)}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-            />
-            <label htmlFor="search" />
-            <button type="submit">
-              <img src={SearchIcon} alt="search icon" />
-            </button>
-          </SearchInputWrapper>
+          <SearchInput name="input" onChange={handleChange} />
           <CustomSelect
             gridArea="categories-select"
             options={categoryOptions}
             selectLabel="Categories"
+            name="category"
+            onChange={handleChange}
           />
-
           <CustomSelect
             gridArea="sorting-select"
             options={sortingOptions}
             selectLabel="Sorting by"
+            name="sorting"
+            onChange={handleChange}
           />
         </SearchForm>
       </SearchFormContainer>
