@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
 import { SearchSection } from '@/components/SearchSection';
 import { useHandleInput } from '@/hooks/useHandleInput';
+import {log} from "util";
 
 export default function Home() {
-  const { values, handleInput } = useHandleInput();
+  const { values, handleInput, handleSubmit } = useHandleInput();
+
   const apiUrl = 'https://www.googleapis.com/books/v1/volumes';
   const apiKey = 'AIzaSyBWdD2QpIiQ_AbBmwLNeBHSTE2rY1zu-Uw';
   const searchTerm = 'flowers';
@@ -28,11 +30,14 @@ export default function Home() {
       setIsFetching(true);
       const response = await axios.get(apiUrl, {
         params: {
-          q: `${searchTerm}+inauthor:keyes`,
+          q: `${values.input ? values.input : 'java script'}+subject:${values.category}+fiction`,
+
+          orderBy: `${values.sorting}`,
           key: `${apiKey}`,
         },
       });
       setBooks(response.data);
+      console.log('response', response)
     } catch (error) {
       let errorMessage = 'Failed to do something exceptional';
       if (error instanceof Error) {
@@ -47,12 +52,10 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [values]);
 
   console.log('books', books);
   return (
-    <SearchSection
-      handleInput={handleInput}
-    />
+    <SearchSection handleInput={handleInput} handleSubmit={handleSubmit} />
   );
 }
