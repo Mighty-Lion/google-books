@@ -1,12 +1,22 @@
-import { ChangeEventHandler, useState } from 'react';
+import {
+  ChangeEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  useState,
+} from 'react';
 import SearchIcon from '@/assets/images/svg/search.svg';
 import { SearchInputWrapper } from '@/components/SearchInput/index.styles';
 
 export interface ICustomInputProps {
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement> | undefined;
   name?: string;
 }
-export function SearchInput({ onChange, name }: ICustomInputProps) {
+export function SearchInput({
+  onChange,
+  name,
+  onKeyDown,
+}: ICustomInputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -17,6 +27,7 @@ export function SearchInput({ onChange, name }: ICustomInputProps) {
         type="text"
         name={name}
         onChange={onChange}
+        onKeyDown={onKeyDown}
         placeholder="Введите поисковой запрос"
         onMouseOver={() => setIsHovered(true)}
         onMouseOut={() => setIsHovered(false)}
