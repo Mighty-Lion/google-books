@@ -11,11 +11,11 @@ import { SearchInput } from '../SearchInput';
 
 export interface ISearchSectionProps {
   handleSubmit?: FormEventHandler<HTMLFormElement>;
-  handleChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement>;
+  handleInput: (e: any) => void;
 }
 export function SearchSection({
   handleSubmit,
-  handleChange,
+  handleInput,
 }: ISearchSectionProps) {
   const categoryOptions = [
     { optionValue: 'all', optionLabel: 'All' },
@@ -39,20 +39,20 @@ export function SearchSection({
           <Heading>Search for books</Heading>
         </HeadingWrapper>
         <SearchForm>
-          <SearchInput name="input" onChange={handleChange} />
+          <SearchInput name="input" onChange={handleInput} />
           <CustomSelect
             gridArea="categories-select"
             options={categoryOptions}
             selectLabel="Categories"
             name="category"
-            onChange={handleChange}
+            onChange={handleInput}
           />
           <CustomSelect
             gridArea="sorting-select"
             options={sortingOptions}
             selectLabel="Sorting by"
             name="sorting"
-            onChange={handleChange}
+            onChange={handleInput}
           />
         </SearchForm>
       </SearchFormContainer>

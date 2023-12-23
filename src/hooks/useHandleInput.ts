@@ -1,46 +1,27 @@
 import { useCallback, useState } from 'react';
 
 interface IHandleInputProps {
-  inputValue?: string;
-  categoryValue?: string;
-  sortingValue?: string;
+  target: { name: string; value: string };
 }
-
-export function useHandleInput({
-  inputValue,
-  categoryValue,
-  sortingValue,
-}: IHandleInputProps) {
+export function useHandleInput() {
   const initialValues = {
-    inputValue: '',
-    categoryValue: 'all',
-    sortingValue: 'relevance',
+    input: '',
+    category: 'all',
+    sorting: 'relevance',
   };
   const [values, setValues] = useState(initialValues);
 
-  const handleInput = useCallback(() => {
-    if (inputValue) {
-      setValues((prev) => {
-        return { ...prev, inputValue };
-      });
-    } else {
-      setValues((prev) => {
-        return { ...prev, inputValue: '' };
-      });
-    }
+  const handleInput = useCallback(
+    (event: IHandleInputProps) => {
+      const { name, value } = event.target;
+      setValues((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    },
+    [setValues]
+  );
 
-    if (categoryValue) {
-      setValues((prev) => {
-        return { ...prev, categoryValue };
-      });
-    }
-
-    if (sortingValue) {
-      setValues((prev) => {
-        return { ...prev, sortingValue };
-      });
-    }
-  }, [setValues]);
-
+  console.log('values', values);
   return { values, handleInput };
 }
