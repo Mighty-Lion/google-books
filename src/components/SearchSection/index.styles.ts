@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import exp from 'constants';
-import { boolean } from 'yup';
 import { getBreakpoint } from '@/Breakpoinst';
 
 export const SearchFormWrapper = styled.div`
@@ -40,6 +38,7 @@ export const SearchForm = styled.div`
   margin: 30px auto 0 auto;
   padding: 0 50px;
   width: 100%;
+  max-width: 800px;
 
   @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
     grid-template-areas:
