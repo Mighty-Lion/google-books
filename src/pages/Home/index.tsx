@@ -2,8 +2,11 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
 import { SearchSection } from '@/components/SearchSection';
+import { useFormValues } from '@/hooks/useFormValues';
 
 export default function Home() {
+  const { formik } = useFormValues();
+
   const apiUrl = 'https://www.googleapis.com/books/v1/volumes';
   const apiKey = 'AIzaSyBWdD2QpIiQ_AbBmwLNeBHSTE2rY1zu-Uw';
   const searchTerm = 'flowers';
@@ -49,8 +52,9 @@ export default function Home() {
 
   console.log('books', books);
   return (
-    <>
-      <SearchSection/>
-    </>
+    <SearchSection
+      handleSubmit={formik.handleSubmit}
+      handleChange={formik.handleChange}
+    />
   );
 }
