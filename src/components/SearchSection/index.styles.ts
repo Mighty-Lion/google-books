@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import exp from 'constants';
+import { boolean } from 'yup';
 import { getBreakpoint } from '@/Breakpoinst';
 
 export const SearchFormWrapper = styled.div`
@@ -7,12 +9,12 @@ export const SearchFormWrapper = styled.div`
 `;
 
 export const SearchFormContainer = styled.div`
-  padding-left: 56px;
-  padding-right: 56px;
+  margin: 0 auto;
+  padding: 50px 56px;
+  max-width: 1440px;
 
   @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 25px 10px;
   }
 
   @media (max-width: ${getBreakpoint('MOBILE_M', 'down')}) {
@@ -20,26 +22,50 @@ export const SearchFormContainer = styled.div`
     padding-right: 5px;
   }
 `;
+
+export const HeadingWrapper = styled.div`
+  margin: 0 auto;
+  max-width: 400px;
+
+  @media (max-width: ${getBreakpoint('MOBILE_M', 'down')}) {
+    margin: 0 auto;
+  }
+`;
 export const SearchForm = styled.div`
   display: grid;
   grid-template-areas:
     'input input'
     'categoties-select sorting-select';
-  margin: 0 auto;
-  padding: 50px;
+  margin: 30px auto 0 auto;
+  padding: 0 50px;
   width: 100%;
   max-width: 50%;
 `;
 
-export const SearchInputWrapper = styled.div`
+export const SearchInputWrapper = styled.div<{
+  isFocused: boolean;
+  isHovered: boolean;
+}>`
   grid-area: input;
   position: relative;
   margin: 0 auto;
   width: 100%;
   max-width: 700px;
-  height: 80px;
+  height: 50px;
   overflow: hidden;
   border-radius: 5px;
+	transition: 0.5s all;
+  ${({ isFocused }) =>
+    isFocused &&
+    `
+      box-shadow: 0 4px 4px 0 var(--color-blue-400);
+  `};
+  
+  ${({ isHovered }) =>
+    isHovered &&
+    `
+      box-shadow: 0 4px 4px 0 var(--color-blue-400);
+  `};
 
   input {
     position: absolute;
@@ -50,7 +76,7 @@ export const SearchInputWrapper = styled.div`
     border: none;
     padding: 0 70px 0 5px;
     width: 100%;
-    height: 80px;
+    height: 50px;
     font-size: 15px;
 
     &::placeholder {
@@ -76,5 +102,15 @@ export const SearchInputWrapper = styled.div`
     width: 50px;
     outline: none;
     cursor: pointer;
+		transition: 0.5s all;
+
+    &:focus,
+    &:hover {
+      background: var(--color-blue-400);
+    }
+    
+    &:active {
+      background: var(--color-blue-500);
+    }
   }
 `;
