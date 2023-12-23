@@ -1,27 +1,46 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 
 interface IHandleInputProps {
   target: { name: string; value: string };
 }
+
 export function useHandleInput() {
   const initialValues = {
     input: '',
     category: 'all',
     sorting: 'relevance',
   };
+  const [state, setState] = useState(initialValues);
   const [values, setValues] = useState(initialValues);
-
   const handleInput = useCallback(
     (event: IHandleInputProps) => {
       const { name, value } = event.target;
-      setValues((prevState) => ({
+      setState((prevState) => ({
         ...prevState,
         [name]: value,
       }));
     },
-    [setValues]
+    [setState]
   );
 
-  console.log('values', values);
-  return { values, handleInput };
+  function handleSubmit() {
+    console.log('handleSubmit');
+    setValues(state);
+  }
+
+  const debouncedValue = useDebounce<{
+    input: string;
+    category: string;
+    sorting: string;
+  }>(state, 5000);
+
+  useEffect(() => {
+    setValues(debouncedValue);
+  }, [debouncedValue]);
+
+  // console.log('statee', state);
+  // console.log('values', values);
+  // console.log('deboun', debouncedValue);
+  return { state, values, handleInput, handleSubmit };
 }
