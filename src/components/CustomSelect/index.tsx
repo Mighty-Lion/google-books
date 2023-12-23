@@ -1,9 +1,12 @@
+import { ChangeEventHandler } from 'react';
 import { CustomSelectWrapper } from '@/components/CustomSelect/index.styles';
 
 export interface ICustomSelectProps {
   options?: IOptionsProps[];
   gridArea?: string;
   selectLabel?: string;
+  name?: string;
+  onChange?: ChangeEventHandler<HTMLSelectElement>;
 }
 interface IOptionsProps {
   optionValue: string;
@@ -13,6 +16,8 @@ export function CustomSelect({
   gridArea,
   options,
   selectLabel,
+  name,
+  onChange,
 }: ICustomSelectProps) {
   const renderedOptions = options!.map(
     ({ optionValue, optionLabel }: IOptionsProps) => (
@@ -24,7 +29,9 @@ export function CustomSelect({
   return (
     <CustomSelectWrapper gridArea={gridArea}>
       {selectLabel && <label>{selectLabel}</label>}
-      <select>{renderedOptions}</select>
+      <select name={name} onChange={onChange}>
+        {renderedOptions}
+      </select>
     </CustomSelectWrapper>
   );
 }
