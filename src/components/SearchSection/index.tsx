@@ -1,4 +1,3 @@
-import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 import {
   HeadingWrapper,
   SearchForm,
@@ -8,15 +7,14 @@ import {
 import { Heading } from '@/components/Heading';
 import { CustomSelect } from '@/components/CustomSelect';
 import { SearchInput } from '../SearchInput';
-import {debounce} from "@/functions/debounce";
 
 export interface ISearchSectionProps {
-  handleSubmit?: FormEventHandler<HTMLFormElement>;
   handleInput: (e: any) => void;
+  handleSubmit: (e: any) => void;
 }
 export function SearchSection({
-  handleSubmit,
   handleInput,
+  handleSubmit,
 }: ISearchSectionProps) {
   const categoryOptions = [
     { optionValue: 'all', optionLabel: 'All' },
@@ -33,14 +31,28 @@ export function SearchSection({
     { optionValue: 'newest', optionLabel: 'Newest' },
   ];
 
+
   return (
     <SearchFormWrapper>
       <SearchFormContainer>
         <HeadingWrapper>
           <Heading>Search for books</Heading>
         </HeadingWrapper>
-        <SearchForm>
-          <SearchInput name="input" onChange={debounce(handleInput, 2000)} />
+        <SearchForm
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(e);
+          }}
+        >
+          <SearchInput
+            name="input"
+            onChange={handleInput}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleInput(e);
+              }
+            }}
+          />
           <CustomSelect
             gridArea="categories-select"
             options={categoryOptions}
