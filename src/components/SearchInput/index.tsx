@@ -1,7 +1,6 @@
 import {
   ChangeEventHandler,
   KeyboardEventHandler,
-  MouseEventHandler,
   useState,
 } from 'react';
 import SearchIcon from '@/assets/images/svg/search.svg';

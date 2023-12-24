@@ -5,6 +5,7 @@ export const BooksSectionWrapper = styled.section`
   margin: 0 auto;
   padding: 50px 56px;
   max-width: 1440px;
+	background: #646cff50;
 
   @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
     padding: 25px 10px;
@@ -18,5 +19,15 @@ export const BooksSectionWrapper = styled.section`
 
 export const BooksSectionContainer = styled.div`
   display: grid;
-  grid-gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+	
+
+  @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: ${getBreakpoint('MOBILE_M', 'down')}) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;

@@ -3,26 +3,34 @@ import {
   BooksSectionWrapper,
 } from '@/components/BooksSection/index.styles';
 import { BookCard } from '@/components/BooksSection/partials/BookCard';
+import {useEffect} from "react";
 
 export interface IBooksSectionProps {
   books: any;
 }
 export function BooksSection({ books }: IBooksSectionProps) {
-  console.log('items', books.items);
-  const { items } = books;
-  const mappedBooks = items.map((item: any) => (
+
+  /* eslint-disable */
+  // @ts-ignore
+
+  const imgSrc = item.volumeInfo.imageLinks.smallThumbnail;
+  console.log('imgSrc', imgSrc)
+  const mappedBooks = books['items']?.map((item: any) => (
+    /* eslint-enable */
     <BookCard
       key={
-        item.volumeInfo.category +
+        item.volumeInfo.categories +
         item.volumeInfo.title +
         item.volumeInfo.imageLinks.smallThumbnail
       }
-      img={item.volumeInfo.imageLinks.smallThumbnail}
-      category={item.volumeInfo.category}
+      img={imgSrc}
+      category={item.volumeInfo.categories}
       name={item.volumeInfo.title}
       author={item.volumeInfo.authors}
     />
   ));
+
+
   return (
     <BooksSectionWrapper>
       <BooksSectionContainer>{mappedBooks}</BooksSectionContainer>

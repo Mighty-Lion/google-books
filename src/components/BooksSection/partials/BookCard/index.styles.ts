@@ -13,11 +13,13 @@ export const BookCardImageWrapper = styled.div`
   margin: 0 auto 15px auto;
   max-width: 200px;
   width: 100%;
+	
 
   img {
     display: flex;
     width: 100%;
     object-fit: contain;
+		max-height: 250px;
   }
 `;
 
