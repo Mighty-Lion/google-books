@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
 import { SearchSection } from '@/components/SearchSection';
 import { useHandleInput } from '@/hooks/useHandleInput';
+import { BooksSection } from '@/components/BooksSection';
 
 export default function Home() {
   const { values, handleInput, handleSubmit } = useHandleInput();
@@ -14,7 +15,7 @@ export default function Home() {
   const searchParams = input || 'java script';
   const inputParams = searchParams + categoryParams;
   console.log('input', input);
-  console.log('inputParams', inputParams)
+  console.log('inputParams', inputParams);
 
   // const savedPosts = localStorage.getItem('savedPosts');
   // const parsedPosts = savedPosts && JSON.parse(savedPosts);
@@ -62,6 +63,9 @@ export default function Home() {
 
   console.log('books', books);
   return (
-    <SearchSection handleInput={handleInput} handleSubmit={handleSubmit} />
+    <>
+      <SearchSection handleInput={handleInput} handleSubmit={handleSubmit} />
+      <BooksSection books={books} />
+    </>
   );
 }
