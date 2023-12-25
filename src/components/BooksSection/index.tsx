@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import {
+  FoundedResults,
   BooksSectionContainer,
   BooksSectionWrapper,
 } from '@/components/BooksSection/index.styles';
@@ -41,8 +42,12 @@ export function BooksSection({ isFetching, books }: IBooksSectionProps) {
     <div>Loading...</div>
   );
 
+  console.log(books);
   return (
     <BooksSectionWrapper>
+      {books.totalItems && (
+        <FoundedResults>Found {books.totalItems} results</FoundedResults>
+      )}
       <BooksSectionContainer>
         {isFetching ? <LoadingSpinner /> : mappedBooks}
       </BooksSectionContainer>
