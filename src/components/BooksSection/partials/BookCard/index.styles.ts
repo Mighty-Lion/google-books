@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 export const BookCardContainer = styled.div`
+  margin: 0 auto;
   padding: 10px;
   width: 100%;
   max-width: 350px;
