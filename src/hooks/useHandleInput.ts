@@ -7,7 +7,7 @@ interface IHandleInputProps {
 
 export function useHandleInput() {
   const initialValues = {
-    input: '',
+    searchParams: '',
     category: 'all',
     sorting: 'relevance',
   };
@@ -30,7 +30,7 @@ export function useHandleInput() {
   }
 
   const debouncedValue = useDebounce<{
-    input: string;
+    searchParams: string;
     category: string;
     sorting: string;
   }>(state, 5000);
