@@ -45,7 +45,7 @@ export function SearchSection({
           }}
         >
           <SearchInput
-            name="input"
+            name="searchParams"
             onChange={handleInput}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
