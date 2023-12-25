@@ -26,7 +26,7 @@ export default function Home() {
   const toastNotifications = useToastNotifications();
 
   // const [posts, setPosts] = useState<IPostProps[]>(parsedPosts || []);
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<any>([]);
   const [isFetching, setIsFetching] = useState(false);
 
   const testT = {
@@ -65,30 +65,26 @@ export default function Home() {
   useEffect(() => {
     fetchData();
   }, [values]);
-  /* eslint-disable */
-  const mappedBooks =
-    !isFetching &&
-    books['items']?.map((item: any) => {
-      return (
-        <BookCard
-          key={item.volumeInfo.categories + item.volumeInfo.title}
-          img={item.volumeInfo.imageLinks.smallThumbnail}
-          category={item.volumeInfo.categories}
-          name={item.volumeInfo.title}
-          author={item.volumeInfo.authors}
+
+  console.log('books',books.items)
+  const mappedBooks = books.items ?  books.items?.map((item: any) => {
+        console.log(`item.volumeInfo.authors ${item.volumeInfo.authors}`)
+        const author = item.volumeInfo.authors ? item.volumeInfo.authors.reduce(
+            (accumulator: any, currentValue: any) => accumulator + currentValue + '\n',
+            '',
+        ) : '';
+        console.log(`author ${author}`)
+        return <BookCard
+            key={item.volumeInfo.title}
+            img={item.volumeInfo.imageLinks !== undefined ? item.volumeInfo.imageLinks.smallThumbnail : SearchIcon}
+            category={item.volumeInfo.categories}
+            name={item.volumeInfo.title}
+            author={author}
         />
-      );
-    });
-  /* eslint-enable */
-  /* eslint-disable */
-  // @ts-ignore
-  const mapped = books['items']?.map((item: any) => {
-    /* eslint-enable */
-    console.log(
-      'item.volumeInfo.imageLinks.smallThumbnail',
-      item.volumeInfo.imageLinks.smallThumbnail
-    );
-  });
+      }
+       ) : <div>Loading...</div>
+
+
 
   return (
     <>

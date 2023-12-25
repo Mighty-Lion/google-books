@@ -18,11 +18,7 @@ export function BooksSection({ books }: IBooksSectionProps) {
   const mappedBooks = books['items']?.map((item: any) => (
     /* eslint-enable */
     <BookCard
-      key={
-        item.volumeInfo.categories +
-        item.volumeInfo.title +
-        item.volumeInfo.imageLinks.smallThumbnail
-      }
+
       img={imgSrc}
       category={item.volumeInfo.categories}
       name={item.volumeInfo.title}
