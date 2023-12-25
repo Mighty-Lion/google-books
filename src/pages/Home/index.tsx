@@ -16,6 +16,7 @@ export default function Home() {
   const toastNotifications = useToastNotifications();
   const { values, handleInput, handleSubmit } = useHandleInput();
   const apiUrl = 'https://www.googleapis.com/books/v1/volumes';
+  const url = 'https://www.googleapis.com/books/v1/volumes';
   const apiKey = 'AIzaSyBWdD2QpIiQ_AbBmwLNeBHSTE2rY1zu-Uw';
   const { searchParams, sorting, category } = values;
 
@@ -23,9 +24,16 @@ export default function Home() {
   const [isFetching, setIsFetching] = useState(false);
 
   const params = {
-    q: `${searchParams}${
-      category && `${searchParams !== '' && '+'}subject:${category}`
-    }`,
+    // q: `${searchParams}${
+    //   category
+    //     ? `${searchParams !== '' && `+subject:${category}`}`
+    //     : `subject:${category}`
+    // }`,
+
+    // q: `${category !== 'all' && `subject:${category}`}`,
+
+    q: `subject:fiction`,
+
     orderBy: `${sorting}`,
     startIndex: 0,
     maxResults: 30,
@@ -36,6 +44,7 @@ export default function Home() {
     try {
       setIsFetching(true);
       const response = await axios.get(apiUrl, { params });
+      const res = axios.getUri(url);
       setBooks(response.data);
     } catch (error) {
       let errorMessage = 'Failed to do something exceptional';
@@ -54,7 +63,11 @@ export default function Home() {
 
   console.log('books', books.items);
   const mappedBooks = books.items ? (
-    books.items?.map((item: any) => {
+    books.items.map((item: any) => {
+      const imgSrc =
+        item.volumeInfo.imageLinks !== undefined
+          ? item.volumeInfo.imageLinks.smallThumbnail
+          : SearchIcon;
       const author = item.volumeInfo.authors
         ? item.volumeInfo.authors.reduce(
             (accumulator: any, currentValue: any) =>
@@ -65,11 +78,7 @@ export default function Home() {
       return (
         <BookCard
           key={item.volumeInfo.title + item.volumeInfo.categories + author}
-          img={
-            item.volumeInfo.imageLinks !== undefined
-              ? item.volumeInfo.imageLinks.smallThumbnail
-              : SearchIcon
-          }
+          img={imgSrc}
           category={item.volumeInfo.categories}
           name={item.volumeInfo.title}
           author={author}
