@@ -39,8 +39,5 @@ export function useHandleInput() {
     setValues(debouncedValue);
   }, [debouncedValue]);
 
-  // console.log('statee', state);
-  // console.log('values', values);
-  // console.log('deboun', debouncedValue);
-  return { state, values, handleInput, handleSubmit };
+  return { values, handleInput, handleSubmit };
 }
