@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { log } from 'util';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
 import { SearchSection } from '@/components/SearchSection';
 import { useHandleInput } from '@/hooks/useHandleInput';
@@ -16,19 +17,21 @@ export default function Home() {
   const { values, handleInput, handleSubmit } = useHandleInput();
   const apiUrl = 'https://www.googleapis.com/books/v1/volumes';
   const apiKey = 'AIzaSyBWdD2QpIiQ_AbBmwLNeBHSTE2rY1zu-Uw';
-  const { input, sorting, category } = values;
+  const { searchParams, sorting, category } = values;
 
   const [books, setBooks] = useState<any>([]);
   const [isFetching, setIsFetching] = useState(false);
 
   const params = {
-    q: `${input || 'java script'}:${
-      category === 'all' ? '' : `+subject:${category}`
+    q: `${searchParams}${
+      category && `${searchParams !== '' && '+'}subject:${category}`
     }`,
     orderBy: `${sorting}`,
+    startIndex: 0,
+    maxResults: 30,
     key: `${apiKey}`,
   };
-
+  console.log('params', params);
   async function fetchData() {
     try {
       setIsFetching(true);
@@ -61,7 +64,7 @@ export default function Home() {
         : '';
       return (
         <BookCard
-          key={item.volumeInfo.title}
+          key={item.volumeInfo.title + item.volumeInfo.categories + author}
           img={
             item.volumeInfo.imageLinks !== undefined
               ? item.volumeInfo.imageLinks.smallThumbnail
