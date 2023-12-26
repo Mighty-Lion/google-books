@@ -26,13 +26,14 @@ export function useFetchData({
   const [isFetching, setIsFetching] = useState(false);
   const [startId, setStartId] = useState(0);
   const limit = 30;
+
+
   useEffect(() => {
     if (
       searchParams !== newValues.searchParams ||
       category !== newValues.category ||
       sorting !== newValues.sorting
     ) {
-      console.log('!==');
       setStartId(0);
       setNewValues({ searchParams, category, sorting });
     }

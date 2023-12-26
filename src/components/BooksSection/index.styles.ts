@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import exp from 'constants';
 import { getBreakpoint } from '@/Breakpoinst';
 
 export const BooksSectionWrapper = styled.section`
@@ -41,11 +42,17 @@ export const FoundedResults = styled.div`
   font-size: 1em;
 `;
 
+export const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto 20px auto;
+`;
 export const BooksButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px auto 0 auto;
+
   padding: 0 10px;
   border: none;
   height: 30px;
