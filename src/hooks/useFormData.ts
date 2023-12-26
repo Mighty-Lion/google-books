@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 
-interface IHandleInputProps {
+export interface IHandleInputProps {
   target: { name: string; value: string };
 }
 
-export function useHandleInput() {
+export function useFormData() {
   const initialValues = {
     searchParams: '',
     category: 'all',
@@ -13,7 +13,7 @@ export function useHandleInput() {
   };
   const [state, setState] = useState(initialValues);
   const [values, setValues] = useState(initialValues);
-  const handleInput = useCallback(
+  const handleChange = useCallback(
     (event: IHandleInputProps) => {
       const { name, value } = event.target;
       setState((prevState) => ({
@@ -39,5 +39,5 @@ export function useHandleInput() {
     setValues(debouncedValue);
   }, [debouncedValue]);
 
-  return { values, handleInput, handleSubmit };
+  return { values, handleInput: handleChange, handleSubmit };
 }

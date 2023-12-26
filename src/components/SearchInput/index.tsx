@@ -1,8 +1,4 @@
-import {
-  ChangeEventHandler,
-  KeyboardEventHandler,
-  useState,
-} from 'react';
+import { ChangeEventHandler, KeyboardEventHandler, useState } from 'react';
 import SearchIcon from '@/assets/images/svg/search.svg';
 import { SearchInputWrapper } from '@/components/SearchInput/index.styles';
 
@@ -11,11 +7,7 @@ export interface ICustomInputProps {
   onKeyDown?: KeyboardEventHandler<HTMLInputElement> | undefined;
   name?: string;
 }
-export function SearchInput({
-  onChange,
-  name,
-  onKeyDown,
-}: ICustomInputProps) {
+export function SearchInput({ onChange, name, onKeyDown }: ICustomInputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 

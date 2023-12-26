@@ -1,12 +1,12 @@
 import { SearchSection } from '@/components/SearchSection';
-import { useHandleInput } from '@/hooks/useHandleInput';
+import { useFormData } from '@/hooks/useFormData';
 import { useFetchData } from '@/hooks/useFetchData';
 import { BooksSection } from '@/components/BooksSection';
 
 export default function Home() {
-  const { values, handleInput, handleSubmit } = useHandleInput();
+  const { values, handleInput, handleSubmit } = useFormData();
   const { books, isFetching, handleFetching } = useFetchData(values);
-  console.log('books', books);
+
   return (
     <>
       <SearchSection handleInput={handleInput} handleSubmit={handleSubmit} />

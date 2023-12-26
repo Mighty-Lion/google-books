@@ -7,6 +7,75 @@ interface IFetchDataProps {
   category: string;
   sorting: string;
 }
+
+interface IBookProps {
+  kind?: string;
+  id?: string;
+  etag?: string;
+  selfLink?: string;
+  volumeInfo?: {
+    title?: string;
+    subtitle?: string;
+    authors?: string[];
+    publishedDate?: string;
+    industryIdentifiers?: [
+      {
+        type?: string;
+        identifier?: string;
+      }
+    ];
+    readingModes: {
+      text?: boolean;
+      image?: boolean;
+    };
+    pageCount?: number;
+    printType?: string;
+    categories?: string[];
+    maturityRating?: string;
+    allowAnonLogging?: boolean;
+    contentVersion?: string;
+    panelizationSummary?: {
+      containsEpubBubbles?: false;
+      containsImageBubbles?: false;
+    };
+    imageLinks?: {
+      smallThumbnail?: string;
+      thumbnail?: string;
+    };
+    language?: string;
+    previewLink?: string;
+    infoLink?: string;
+    canonicalVolumeLink?: string;
+  };
+  saleInfo?: {
+    country?: string;
+    saleability?: string;
+    isEbook?: boolean;
+  };
+  accessInfo?: {
+    country?: string;
+    viewability?: string;
+    embeddable?: boolean;
+    publicDomain?: boolean;
+    textToSpeechPermission?: string;
+    epub?: {
+      isAvailable?: boolean;
+    };
+    pdf?: {
+      isAvailable?: boolean;
+    };
+    webReaderLink?: string;
+    accessViewStatus?: string;
+    quoteSharingAllowed?: string;
+  };
+}
+
+interface IDataProps {
+  items: IBookProps[];
+  kind: string;
+  totalItems: number;
+}
+
 export function useFetchData({
   searchParams,
   category,
@@ -16,40 +85,39 @@ export function useFetchData({
   const apiUrl = 'https://www.googleapis.com/books/v1/volumes';
   const apiKey = 'AIzaSyBWdD2QpIiQ_AbBmwLNeBHSTE2rY1zu-Uw';
 
-  // const
-  const [newValues, setNewValues] = useState({
+  const [filters, setFilters] = useState({
     searchParams: '',
     category: 'all',
     sorting: 'relevance',
   });
-  const [books, setBooks] = useState<any>([]);
+  const [books, setBooks] = useState<IDataProps[] | (() => IDataProps)>([]);
   const [isFetching, setIsFetching] = useState(false);
   const [startId, setStartId] = useState(0);
-  const limit = 30;
-
+  const limit = 30
 
   useEffect(() => {
     if (
-      searchParams !== newValues.searchParams ||
-      category !== newValues.category ||
-      sorting !== newValues.sorting
+      searchParams !== filters.searchParams ||
+      category !== filters.category ||
+      sorting !== filters.sorting
     ) {
       setStartId(0);
-      setNewValues({ searchParams, category, sorting });
+      setFilters({ searchParams, category, sorting });
     }
   }, [searchParams, category, sorting]);
 
-  // console.log('values', values)
   const handleFetching = () => {
     console.log('handleFetching');
     setStartId((prev) => prev + limit);
   };
 
+  const searchFilter = `${
+    filters.searchParams !== '' ? `${filters.searchParams}+` : ''
+  }subject:${filters.category === 'all' ? '' : filters.category}`;
+
   const params = {
-    q: `${
-      newValues.searchParams !== '' ? `${newValues.searchParams}+` : ''
-    }subject:${newValues.category === 'all' ? '' : newValues.category}`,
-    orderBy: `${newValues.sorting}`,
+    q: searchFilter,
+    orderBy: `${filters.sorting}`,
     startIndex: startId,
     maxResults: limit,
     key: `${apiKey}`,
@@ -73,7 +141,7 @@ export function useFetchData({
 
   useEffect(() => {
     fetchData();
-  }, [newValues.searchParams, newValues.category, newValues.sorting, startId]);
+  }, [filters.searchParams, filters.category, filters.sorting, startId]);
 
   return { books, isFetching, handleFetching };
 }

@@ -1,3 +1,4 @@
+import { FormEvent } from 'react';
 import {
   HeadingWrapper,
   SearchForm,
@@ -31,7 +32,6 @@ export function SearchSection({
     { optionValue: 'newest', optionLabel: 'Newest' },
   ];
 
-
   return (
     <SearchFormWrapper>
       <SearchFormContainer>
@@ -41,6 +41,7 @@ export function SearchSection({
         <SearchForm
           onSubmit={(e) => {
             e.preventDefault();
+            console.log('event', e);
             handleSubmit(e);
           }}
         >
