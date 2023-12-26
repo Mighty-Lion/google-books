@@ -16,16 +16,41 @@ export function useFetchData({
   const apiUrl = 'https://www.googleapis.com/books/v1/volumes';
   const apiKey = 'AIzaSyBWdD2QpIiQ_AbBmwLNeBHSTE2rY1zu-Uw';
 
+  // const
+  const [newValues, setNewValues] = useState({
+    searchParams: '',
+    category: 'all',
+    sorting: 'relevance',
+  });
   const [books, setBooks] = useState<any>([]);
   const [isFetching, setIsFetching] = useState(false);
+  const [startId, setStartId] = useState(0);
+  const limit = 30;
+  useEffect(() => {
+    if (
+      searchParams !== newValues.searchParams ||
+      category !== newValues.category ||
+      sorting !== newValues.sorting
+    ) {
+      console.log('!==');
+      setStartId(0);
+      setNewValues({ searchParams, category, sorting });
+    }
+  }, [searchParams, category, sorting]);
+
+  // console.log('values', values)
+  const handleFetching = () => {
+    console.log('handleFetching');
+    setStartId((prev) => prev + limit);
+  };
 
   const params = {
-    q: `${searchParams !== '' ? `${searchParams}+` : ''}subject:${
-      category === 'all' ? '' : category
-    }`,
-    orderBy: `${sorting}`,
-    startIndex: 0,
-    maxResults: 10,
+    q: `${
+      newValues.searchParams !== '' ? `${newValues.searchParams}+` : ''
+    }subject:${newValues.category === 'all' ? '' : newValues.category}`,
+    orderBy: `${newValues.sorting}`,
+    startIndex: startId,
+    maxResults: limit,
     key: `${apiKey}`,
   };
 
@@ -47,7 +72,7 @@ export function useFetchData({
 
   useEffect(() => {
     fetchData();
-  }, [searchParams, category, sorting]);
+  }, [newValues.searchParams, newValues.category, newValues.sorting, startId]);
 
-  return { books, isFetching };
+  return { books, isFetching, handleFetching };
 }

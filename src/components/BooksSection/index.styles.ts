@@ -32,11 +32,37 @@ export const BooksSectionContainer = styled.div`
 `;
 
 export const FoundedResults = styled.div`
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: center;
   margin: 0 0 30px 0;
   font-family: Roboto, sans-serif;
   font-weight: normal;
   font-style: italic;
   font-size: 1em;
+`;
+
+export const BooksButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto 0 auto;
+  padding: 0 10px;
+  border: none;
+  height: 30px;
+  width: 100%;
+  max-width: 100px;
+  border-radius: 5px;
+  background: #646cff;
+  color: white;
+
+  &:hover,
+  &:focus {
+    background: #9a9ff9;
+    color: #e6e5f2;
+  }
+
+  &:active {
+    background: lightblue;
+    color: white;
+  }
 `;
