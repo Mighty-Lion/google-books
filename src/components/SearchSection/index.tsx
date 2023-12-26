@@ -10,11 +10,11 @@ import { CustomSelect } from '@/components/CustomSelect';
 import { SearchInput } from '../SearchInput';
 
 export interface ISearchSectionProps {
-  handleInput: (e: any) => void;
+  handleChange: (e: any) => void;
   handleSubmit: (e: any) => void;
 }
 export function SearchSection({
-  handleInput,
+  handleChange,
   handleSubmit,
 }: ISearchSectionProps) {
   const categoryOptions = [
@@ -47,10 +47,10 @@ export function SearchSection({
         >
           <SearchInput
             name="searchParams"
-            onChange={handleInput}
+            onChange={handleChange}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                handleInput(e);
+                handleChange(e);
               }
             }}
           />
@@ -59,14 +59,14 @@ export function SearchSection({
             options={categoryOptions}
             selectLabel="Categories"
             name="category"
-            onChange={handleInput}
+            onChange={handleChange}
           />
           <CustomSelect
             gridArea="sorting-select"
             options={sortingOptions}
             selectLabel="Sorting by"
             name="sorting"
-            onChange={handleInput}
+            onChange={handleChange}
           />
         </SearchForm>
       </SearchFormContainer>

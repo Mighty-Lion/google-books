@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <>
-      <SearchSection handleInput={handleInput} handleSubmit={handleSubmit} />
+      <SearchSection handleChange={handleInput} handleSubmit={handleSubmit} />
       <BooksSection
         books={books}
         isFetching={isFetching}
