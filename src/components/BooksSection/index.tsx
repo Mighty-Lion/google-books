@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import {
   FoundedResults,
   BooksSectionContainer,
@@ -6,21 +7,24 @@ import {
   LoadingWrapper,
 } from '@/components/BooksSection/index.styles';
 import { BookCard } from '@/components/BooksSection/partials/BookCard';
-import { LoadingSpinner } from '@/components/LoadingSpiner';
 import SearchIcon from '@/assets/images/svg/search.svg';
 import { IBookProps, IDataProps } from '@/hooks/useFetchData';
 
 export interface IBooksSectionProps {
   data: IDataProps | undefined;
+  books: IBookProps[];
   isFetching: boolean;
-  handleFetching: () => void;
+  handleUpdate: () => void;
+  setBookId: Dispatch<SetStateAction<string | undefined>>;
 }
 export function BooksSection({
   isFetching,
   data,
-  handleFetching,
+  books,
+  handleUpdate,
+  setBookId,
 }: IBooksSectionProps) {
-  const mappedBooks = data?.items?.map((item: IBookProps) => {
+  const mappedBooks = books?.map((item: IBookProps) => {
     const imgSrc =
       item?.volumeInfo?.imageLinks !== undefined
         ? item.volumeInfo.imageLinks.smallThumbnail
@@ -35,6 +39,8 @@ export function BooksSection({
     return (
       <BookCard
         key={item.volumeInfo.title + author + imgSrc}
+        setBookId={setBookId}
+        id={item.id}
         img={imgSrc}
         category={item.volumeInfo?.categories}
         name={item.volumeInfo?.title}
@@ -48,19 +54,26 @@ export function BooksSection({
       {data?.totalItems && (
         <FoundedResults>Found {data.totalItems} results</FoundedResults>
       )}
+      <BooksSectionContainer>{mappedBooks}</BooksSectionContainer>
       <LoadingWrapper>
         {!isFetching ? (
-          <BooksButton type="button" onClick={handleFetching}>
+          <BooksButton type="button" onClick={handleUpdate}>
             Load more ...
           </BooksButton>
         ) : (
           <div>Loading ...</div>
         )}
+        <BooksButton
+          onClick={() =>
+            window.scrollTo({
+              behavior: 'smooth',
+              top: 0,
+            })
+          }
+        >
+          To top
+        </BooksButton>
       </LoadingWrapper>
-
-      <BooksSectionContainer>
-        {isFetching ? <LoadingSpinner /> : mappedBooks}
-      </BooksSectionContainer>
     </BooksSectionWrapper>
   );
 }

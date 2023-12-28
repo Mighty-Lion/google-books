@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import exp from 'constants';
+import { Link } from 'react-router-dom';
 import { getBreakpoint } from '@/Breakpoinst';
 
 export const BooksSectionWrapper = styled.section`
@@ -43,7 +44,9 @@ export const FoundedResults = styled.div`
 `;
 
 export const LoadingWrapper = styled.div`
-  display: flex;
+  display: grid;
+	grid-template-columns: auto auto;
+	grid-gap: 10px;
   justify-content: center;
   align-items: center;
   margin: 20px auto 20px auto;
@@ -52,7 +55,7 @@ export const BooksButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  margin-right: 10px;
   padding: 0 10px;
   border: none;
   height: 30px;
@@ -61,7 +64,7 @@ export const BooksButton = styled.button`
   border-radius: 5px;
   background: #646cff;
   color: white;
-	transition: 0.5s ease;
+  transition: 0.5s ease;
 
   &:hover,
   &:focus {
@@ -74,3 +77,4 @@ export const BooksButton = styled.button`
     color: white;
   }
 `;
+

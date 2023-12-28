@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
 import axios from 'axios';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
 
@@ -10,7 +10,7 @@ interface IFetchDataProps {
 
 export interface IBookProps {
   kind?: string;
-  id?: string;
+  id: string;
   etag?: string;
   selfLink?: string;
   volumeInfo: {
@@ -91,6 +91,8 @@ export function useFetchData({
     sorting: 'relevance',
   });
   const [data, setData] = useState<IDataProps | undefined>(undefined);
+  const [books, setBooks] = useState<IBookProps[]>([]);
+
   const [isFetching, setIsFetching] = useState(false);
   const [startId, setStartId] = useState(0);
   const limit = 30;
@@ -103,10 +105,11 @@ export function useFetchData({
     ) {
       setStartId(0);
       setFilters({ searchParams, category, sorting });
+      setBooks([]);
     }
   }, [searchParams, category, sorting]);
 
-  const handleFetching = () => {
+  const handleUpdate = () => {
     console.log('handleFetching');
     setStartId((prev) => prev + limit);
   };
@@ -123,14 +126,14 @@ export function useFetchData({
     key: `${apiKey}`,
   };
 
-  const [books, setBooks] = useState<IBookProps[]>([]);
-
   async function fetchData() {
     try {
       setIsFetching(true);
       const response = await axios.get(apiUrl, { params });
       setData(response.data);
-      setBooks((prev) => [...prev, response.data.items]);
+      response.data.items.map((item: IBookProps) =>
+        setBooks((prev) => [...prev, item])
+      );
     } catch (error) {
       let errorMessage = 'Failed to do something exceptional';
       if (error instanceof Error) {
@@ -145,7 +148,7 @@ export function useFetchData({
   console.log('books', books);
   useEffect(() => {
     fetchData();
-  }, [filters.searchParams, filters.category, filters.sorting]);
+  }, [filters.searchParams, filters.category, filters.sorting, startId]);
 
-  return { data, isFetching, handleFetching };
+  return { data, books, isFetching, handleUpdate };
 }
