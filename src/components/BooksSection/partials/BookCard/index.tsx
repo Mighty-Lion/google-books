@@ -6,17 +6,17 @@ import {
 import { Text, TextBold } from '@/components/Text/index.styles';
 
 export interface IBookCardProps {
-  img: string;
-  category: string;
-  name: string;
-  author: string;
+  img: string | undefined;
+  category?: string[] | undefined;
+  name?: string | undefined;
+  author?: string | undefined;
 }
 
 export function BookCard({ img, category, author, name }: IBookCardProps) {
   return (
     <BookCardContainer>
       <BookCardImageWrapper>
-        <img src={img} />
+        <img src={img} alt="img" />
       </BookCardImageWrapper>
       <TextWrapper>
         <Text>{category}</Text>

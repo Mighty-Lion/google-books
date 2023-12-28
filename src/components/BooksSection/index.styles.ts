@@ -61,6 +61,7 @@ export const BooksButton = styled.button`
   border-radius: 5px;
   background: #646cff;
   color: white;
+	transition: 0.5s ease;
 
   &:hover,
   &:focus {

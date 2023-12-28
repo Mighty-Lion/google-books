@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from 'react';
+import {ChangeEventHandler, MouseEventHandler} from 'react';
 import { CustomSelectWrapper } from '@/components/CustomSelect/index.styles';
 
 export interface ICustomSelectProps {
@@ -7,6 +7,7 @@ export interface ICustomSelectProps {
   selectLabel?: string;
   name?: string;
   onChange?: ChangeEventHandler<HTMLSelectElement>;
+  onClick?: MouseEventHandler<HTMLSelectElement>;
 }
 interface IOptionsProps {
   optionValue: string;
@@ -18,18 +19,21 @@ export function CustomSelect({
   selectLabel,
   name,
   onChange,
+  onClick,
 }: ICustomSelectProps) {
   const renderedOptions = options!.map(
     ({ optionValue, optionLabel }: IOptionsProps) => (
-      <option key={optionValue + optionLabel} value={optionValue}>
+      <option key={optionValue + optionLabel} value={optionValue} >
         {optionLabel}
       </option>
     )
   );
+
+
   return (
     <CustomSelectWrapper gridArea={gridArea}>
       {selectLabel && <label>{selectLabel}</label>}
-      <select name={name} onChange={onChange}>
+      <select name={name} onChange={onChange} onClick={onClick}>
         {renderedOptions}
       </select>
     </CustomSelectWrapper>

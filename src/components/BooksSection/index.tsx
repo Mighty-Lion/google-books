@@ -1,4 +1,3 @@
-import { css } from '@emotion/css';
 import {
   FoundedResults,
   BooksSectionContainer,
@@ -9,37 +8,36 @@ import {
 import { BookCard } from '@/components/BooksSection/partials/BookCard';
 import { LoadingSpinner } from '@/components/LoadingSpiner';
 import SearchIcon from '@/assets/images/svg/search.svg';
+import { IBookProps, IDataProps } from '@/hooks/useFetchData';
 
 export interface IBooksSectionProps {
-  books: any;
+  data: IDataProps | undefined;
   isFetching: boolean;
   handleFetching: () => void;
 }
 export function BooksSection({
   isFetching,
-  books,
+  data,
   handleFetching,
 }: IBooksSectionProps) {
-  const mappedBooks = books.items?.map((item: any) => {
+  const mappedBooks = data?.items?.map((item: IBookProps) => {
     const imgSrc =
-      item.volumeInfo.imageLinks !== undefined
+      item?.volumeInfo?.imageLinks !== undefined
         ? item.volumeInfo.imageLinks.smallThumbnail
         : SearchIcon;
-    const author = item.volumeInfo.authors
+    const author = item.volumeInfo?.authors
       ? item.volumeInfo.authors.reduce(
-          (accumulator: any, currentValue: any) =>
+          (accumulator: string, currentValue: string) =>
             `${accumulator + currentValue}\n`,
           ''
         )
       : '';
     return (
       <BookCard
-        key={
-          item.volumeInfo.title + item.volumeInfo.categories + author + imgSrc
-        }
+        key={item.volumeInfo.title + author + imgSrc}
         img={imgSrc}
-        category={item.volumeInfo.categories}
-        name={item.volumeInfo.title}
+        category={item.volumeInfo?.categories}
+        name={item.volumeInfo?.title}
         author={author}
       />
     );
@@ -47,8 +45,8 @@ export function BooksSection({
 
   return (
     <BooksSectionWrapper>
-      {books.totalItems && (
-        <FoundedResults>Found {books.totalItems} results</FoundedResults>
+      {data?.totalItems && (
+        <FoundedResults>Found {data.totalItems} results</FoundedResults>
       )}
       <LoadingWrapper>
         {!isFetching ? (

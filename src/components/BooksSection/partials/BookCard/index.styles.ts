@@ -8,6 +8,14 @@ export const BookCardContainer = styled.div`
 
   background: var(--color-gray-200);
   border-radius: 5px;
+  transition: 0.5s all;
+
+  &:hover,
+  &:focus,
+  &:active {
+    scale: 0.95;
+    background: white;
+  }
 `;
 
 export const BookCardImageWrapper = styled.div`

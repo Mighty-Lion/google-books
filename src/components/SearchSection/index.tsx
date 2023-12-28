@@ -60,6 +60,7 @@ export function SearchSection({
             selectLabel="Categories"
             name="category"
             onChange={handleChange}
+            onClick={handleSubmit}
           />
           <CustomSelect
             gridArea="sorting-select"
@@ -67,6 +68,7 @@ export function SearchSection({
             selectLabel="Sorting by"
             name="sorting"
             onChange={handleChange}
+            onClick={handleSubmit}
           />
         </SearchForm>
       </SearchFormContainer>

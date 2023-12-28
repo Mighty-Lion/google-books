@@ -12,6 +12,7 @@ export const NotFoundButton = styled(Link)`
   border-radius: 5px;
   background: #646cff;
   color: white;
+  transition: 0.5s ease;
 
   &:hover {
     background: #9a9ff9;

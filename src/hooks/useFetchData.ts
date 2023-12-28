@@ -8,12 +8,12 @@ interface IFetchDataProps {
   sorting: string;
 }
 
-interface IBookProps {
+export interface IBookProps {
   kind?: string;
   id?: string;
   etag?: string;
   selfLink?: string;
-  volumeInfo?: {
+  volumeInfo: {
     title?: string;
     subtitle?: string;
     authors?: string[];
@@ -70,7 +70,7 @@ interface IBookProps {
   };
 }
 
-interface IDataProps {
+export interface IDataProps {
   items: IBookProps[];
   kind: string;
   totalItems: number;
@@ -90,10 +90,10 @@ export function useFetchData({
     category: 'all',
     sorting: 'relevance',
   });
-  const [books, setBooks] = useState<IDataProps[] | (() => IDataProps)>([]);
+  const [data, setData] = useState<IDataProps | undefined>(undefined);
   const [isFetching, setIsFetching] = useState(false);
   const [startId, setStartId] = useState(0);
-  const limit = 30
+  const limit = 30;
 
   useEffect(() => {
     if (
@@ -123,11 +123,14 @@ export function useFetchData({
     key: `${apiKey}`,
   };
 
+  const [books, setBooks] = useState<IBookProps[]>([]);
+
   async function fetchData() {
     try {
       setIsFetching(true);
       const response = await axios.get(apiUrl, { params });
-      setBooks(response.data);
+      setData(response.data);
+      setBooks((prev) => [...prev, response.data.items]);
     } catch (error) {
       let errorMessage = 'Failed to do something exceptional';
       if (error instanceof Error) {
@@ -139,9 +142,10 @@ export function useFetchData({
     }
   }
 
+  console.log('books', books);
   useEffect(() => {
     fetchData();
-  }, [filters.searchParams, filters.category, filters.sorting, startId]);
+  }, [filters.searchParams, filters.category, filters.sorting]);
 
-  return { books, isFetching, handleFetching };
+  return { data, isFetching, handleFetching };
 }

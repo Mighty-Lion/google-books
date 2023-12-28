@@ -5,13 +5,14 @@ import { BooksSection } from '@/components/BooksSection';
 
 export default function Home() {
   const { values, handleInput, handleSubmit } = useFormData();
-  const { books, isFetching, handleFetching } = useFetchData(values);
+  const { data, isFetching, handleFetching } = useFetchData(values);
 
   return (
     <>
       <SearchSection handleChange={handleInput} handleSubmit={handleSubmit} />
       <BooksSection
-        books={books}
+        key={data?.items[0]?.volumeInfo?.title}
+        data={data}
         isFetching={isFetching}
         handleFetching={handleFetching}
       />
