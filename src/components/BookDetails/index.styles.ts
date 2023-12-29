@@ -21,6 +21,12 @@ export const BookDetailsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
+
+  @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    padding: 0 10px;
+  }
 `;
 
 export const BookImgWrapper = styled.div`
@@ -80,3 +86,7 @@ export const BookText = styled.span<{
   `
       : `var(--color-black-900)`};
 `;
+
+export const BookButtonWrapper = styled.div ` 
+  margin: 0 auto;
+`

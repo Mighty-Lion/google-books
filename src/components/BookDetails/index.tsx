@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import {
+  BookButtonWrapper,
   BookDetailsContainer,
   BookDetailsWrapper,
   BookImgWrapper,
@@ -35,7 +36,7 @@ export function BookDetails({
 
   const authorsString = convertArrayToString(authorsArray, ', ');
 
-  const categoriesString = convertArrayToString(categoriesArray, '/');
+  const categoriesString = convertArrayToString(categoriesArray, ' / ');
 
   return (
     <BookDetailsWrapper>
@@ -49,9 +50,11 @@ export function BookDetails({
           </BookText>
           <BookText fontSize="30px">{title}</BookText>
           <BookText textDecoration="underline">{authorsString}</BookText>
-          <Button type="button" onClick={() => setSelectedBookId(undefined)}>
-            Back
-          </Button>
+          <BookButtonWrapper>
+            <Button type="button" onClick={() => setSelectedBookId(undefined)}>
+              Back
+            </Button>
+          </BookButtonWrapper>
         </BookInformation>
       </BookDetailsContainer>
     </BookDetailsWrapper>
