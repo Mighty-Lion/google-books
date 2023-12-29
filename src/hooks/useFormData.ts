@@ -25,7 +25,6 @@ export function useFormData() {
   );
 
   function handleSubmit() {
-    console.log('handleSubmit');
     setValues(state);
   }
 
@@ -39,6 +38,5 @@ export function useFormData() {
     setValues(debouncedValue);
   }, [debouncedValue]);
 
-  console.log('USE FORM DATA')
   return { values, handleInput: handleChange, handleSubmit };
 }

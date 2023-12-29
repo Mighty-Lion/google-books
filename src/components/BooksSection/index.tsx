@@ -3,26 +3,26 @@ import {
   FoundedResults,
   BooksSectionContainer,
   BooksSectionWrapper,
-  BooksButton,
   LoadingWrapper,
 } from '@/components/BooksSection/index.styles';
 import { BookCard } from '@/components/BooksSection/partials/BookCard';
 import SearchIcon from '@/assets/images/svg/search.svg';
 import { IBookProps, IDataProps } from '@/hooks/useFetchData';
+import { Button } from '@/components/Button/index.styles';
 
 export interface IBooksSectionProps {
   data: IDataProps | undefined;
   books: IBookProps[];
   isFetching: boolean;
   handleUpdate: () => void;
-  setBookId: Dispatch<SetStateAction<string | undefined>>;
+  setSelectedBookId: Dispatch<SetStateAction<string | undefined>>;
 }
 export function BooksSection({
   isFetching,
   data,
   books,
   handleUpdate,
-  setBookId,
+  setSelectedBookId,
 }: IBooksSectionProps) {
   const mappedBooks = books?.map((item: IBookProps) => {
     const imgSrc =
@@ -39,7 +39,7 @@ export function BooksSection({
     return (
       <BookCard
         key={item.volumeInfo.title + author + imgSrc}
-        setBookId={setBookId}
+        setSelectedBookId={setSelectedBookId}
         id={item.id}
         img={imgSrc}
         category={item.volumeInfo?.categories}
@@ -57,13 +57,13 @@ export function BooksSection({
       <BooksSectionContainer>{mappedBooks}</BooksSectionContainer>
       <LoadingWrapper>
         {!isFetching ? (
-          <BooksButton type="button" onClick={handleUpdate}>
+          <Button type="button" onClick={handleUpdate}>
             Load more ...
-          </BooksButton>
+          </Button>
         ) : (
           <div>Loading ...</div>
         )}
-        <BooksButton
+        <Button
           onClick={() =>
             window.scrollTo({
               behavior: 'smooth',
@@ -72,7 +72,7 @@ export function BooksSection({
           }
         >
           To top
-        </BooksButton>
+        </Button>
       </LoadingWrapper>
     </BooksSectionWrapper>
   );

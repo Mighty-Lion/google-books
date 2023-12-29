@@ -1,4 +1,4 @@
-import { useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
 
@@ -8,45 +8,47 @@ interface IFetchDataProps {
   sorting: string;
 }
 
+export interface IBookInfoProps {
+  title?: string;
+  subtitle?: string;
+  authors?: string[];
+  publishedDate?: string;
+  industryIdentifiers?: [
+    {
+      type?: string;
+      identifier?: string;
+    }
+  ];
+  readingModes?: {
+    text?: boolean;
+    image?: boolean;
+  };
+  pageCount?: number;
+  printType?: string;
+  categories?: string[];
+  maturityRating?: string;
+  allowAnonLogging?: boolean;
+  contentVersion?: string;
+  panelizationSummary?: {
+    containsEpubBubbles?: false;
+    containsImageBubbles?: false;
+  };
+  imageLinks?: {
+    smallThumbnail?: string;
+    thumbnail?: string;
+  };
+  language?: string;
+  previewLink?: string;
+  infoLink?: string;
+  canonicalVolumeLink?: string;
+}
+
 export interface IBookProps {
   kind?: string;
   id: string;
   etag?: string;
   selfLink?: string;
-  volumeInfo: {
-    title?: string;
-    subtitle?: string;
-    authors?: string[];
-    publishedDate?: string;
-    industryIdentifiers?: [
-      {
-        type?: string;
-        identifier?: string;
-      }
-    ];
-    readingModes: {
-      text?: boolean;
-      image?: boolean;
-    };
-    pageCount?: number;
-    printType?: string;
-    categories?: string[];
-    maturityRating?: string;
-    allowAnonLogging?: boolean;
-    contentVersion?: string;
-    panelizationSummary?: {
-      containsEpubBubbles?: false;
-      containsImageBubbles?: false;
-    };
-    imageLinks?: {
-      smallThumbnail?: string;
-      thumbnail?: string;
-    };
-    language?: string;
-    previewLink?: string;
-    infoLink?: string;
-    canonicalVolumeLink?: string;
-  };
+  volumeInfo: IBookInfoProps;
   saleInfo?: {
     country?: string;
     saleability?: string;
@@ -110,7 +112,6 @@ export function useFetchData({
   }, [searchParams, category, sorting]);
 
   const handleUpdate = () => {
-    console.log('handleFetching');
     setStartId((prev) => prev + limit);
   };
 
@@ -145,7 +146,6 @@ export function useFetchData({
     }
   }
 
-  console.log('books', books);
   useEffect(() => {
     fetchData();
   }, [filters.searchParams, filters.category, filters.sorting, startId]);

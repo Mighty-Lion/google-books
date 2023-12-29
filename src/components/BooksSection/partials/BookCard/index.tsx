@@ -12,7 +12,7 @@ export interface IBookCardProps {
   category?: string[] | undefined;
   name?: string | undefined;
   author?: string | undefined;
-  setBookId: Dispatch<SetStateAction<string | undefined>>;
+  setSelectedBookId: Dispatch<SetStateAction<string | undefined>>;
 }
 
 export const BookCard = ({
@@ -21,11 +21,11 @@ export const BookCard = ({
   author,
   name,
   id,
-  setBookId,
+  setSelectedBookId,
 }: IBookCardProps) => {
   const cachedValue = useMemo(() => {
     return (
-      <BookCardContainer onClick={() => setBookId(id)}>
+      <BookCardContainer onClick={() => setSelectedBookId(id)}>
         <BookCardImageWrapper>
           <img src={img} alt="img" />
         </BookCardImageWrapper>
