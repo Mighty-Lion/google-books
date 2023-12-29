@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from 'react';
-import { log } from 'util';
 import {
   BookDetailsContainer,
   BookDetailsWrapper,
@@ -10,6 +9,7 @@ import {
 import { IBookProps } from '@/hooks/useFetchData';
 import SearchIcon from '@/assets/images/svg/search.svg';
 import { Button } from '@/components/Button/index.styles';
+import { convertArrayToString } from '@/functions/convertArrayToString';
 
 interface IBookDetailsProps {
   selectedBook: IBookProps | undefined;
@@ -19,11 +19,10 @@ export function BookDetails({
   selectedBook,
   setSelectedBookId,
 }: IBookDetailsProps) {
-
   const title = selectedBook?.volumeInfo?.title;
   const imageLinks = selectedBook?.volumeInfo?.imageLinks;
-  const authors = selectedBook?.volumeInfo?.authors;
-  const categories = selectedBook?.volumeInfo?.categories;
+  const authorsArray = selectedBook?.volumeInfo?.authors;
+  const categoriesArray = selectedBook?.volumeInfo?.categories;
 
   const imgSmallThumbnail =
     imageLinks?.smallThumbnail !== undefined
@@ -34,23 +33,9 @@ export function BookDetails({
       ? imageLinks.thumbnail
       : imgSmallThumbnail;
 
-  function convertArrayToString(arr: string[] | undefined, delimiter: string) {
-    const valueString = arr
-      ? arr.reduce(
-          (accumulator: string, currentValue: string) =>
-            `${accumulator + currentValue}${delimiter}`,
-          ''
-        )
-      : '';
+  const authorsString = convertArrayToString(authorsArray, ', ');
 
-
-    return valueString.slice(0, -delimiter.length);
-  }
-''
-  console.log('convertAuthorsToString', convertArrayToString(authors, ', '));
-  const authorsString = convertArrayToString(authors, ', ')
-
-  const categoriesString = convertArrayToString(categories, '/')
+  const categoriesString = convertArrayToString(categoriesArray, '/');
 
   return (
     <BookDetailsWrapper>
