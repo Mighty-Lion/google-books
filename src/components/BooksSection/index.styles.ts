@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { getBreakpoint } from '@/Breakpoinst';
 
 export const BooksSectionWrapper = styled.section`
+  position: relative;
   margin: 0 auto;
   padding: 20px 56px 200px 56px;
   max-width: 1440px;
@@ -48,4 +49,10 @@ export const LoadingWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin: 20px auto 20px auto;
+`;
+
+export const ToTopButtonWrapper = styled.div`
+  position: fixed;
+  bottom: 10px;
+  right: 3%;
 `;

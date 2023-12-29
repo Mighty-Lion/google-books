@@ -4,6 +4,7 @@ import {
   BooksSectionContainer,
   BooksSectionWrapper,
   LoadingWrapper,
+  ToTopButtonWrapper,
 } from '@/components/BooksSection/index.styles';
 import { BookCard } from '@/components/BooksSection/partials/BookCard';
 import SearchIcon from '@/assets/images/svg/search.svg';
@@ -54,7 +55,22 @@ export function BooksSection({
       {data?.totalItems && (
         <FoundedResults>Found {data.totalItems} results</FoundedResults>
       )}
-      <BooksSectionContainer>{mappedBooks}</BooksSectionContainer>
+      <BooksSectionContainer>
+        {mappedBooks}
+        <ToTopButtonWrapper>
+          <Button
+            onClick={() =>
+              window.scrollTo({
+                behavior: 'smooth',
+                top: 0,
+              })
+            }
+          >
+            To top
+          </Button>
+        </ToTopButtonWrapper>
+      </BooksSectionContainer>
+
       <LoadingWrapper>
         {!isFetching ? (
           <Button type="button" onClick={handleUpdate}>
@@ -63,16 +79,6 @@ export function BooksSection({
         ) : (
           <div>Loading ...</div>
         )}
-        <Button
-          onClick={() =>
-            window.scrollTo({
-              behavior: 'smooth',
-              top: 0,
-            })
-          }
-        >
-          To top
-        </Button>
       </LoadingWrapper>
     </BooksSectionWrapper>
   );
