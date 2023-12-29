@@ -46,7 +46,7 @@ export function BookDetails({
 
     return valueString.slice(0, -delimiter.length);
   }
-
+''
   console.log('convertAuthorsToString', convertArrayToString(authors, ', '));
   const authorsString = convertArrayToString(authors, ', ')
 
