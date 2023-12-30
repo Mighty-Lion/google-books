@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { type } from 'os';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
 
- export interface IFormDataProps {
+export interface IFormDataProps {
   searchParams: string;
   category: string;
   sorting: string;
@@ -94,7 +95,7 @@ export function useFetchData({
   });
   const [data, setData] = useState<IDataProps | undefined>(undefined);
   const [books, setBooks] = useState<IBookProps[]>([]);
-
+  const [isLastPage, setIsLastPage] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [startId, setStartId] = useState(0);
   const limit = 30;
@@ -132,10 +133,23 @@ export function useFetchData({
       setIsFetching(true);
       const response = await axios.get(apiUrl, { params });
       setData(response.data);
-      console.log('response.data', response.data)
-      response.data.items.map((item: IBookProps) =>
-        setBooks((prev) => [...prev, item])
-      );
+      console.log('response.data', response.data);
+      console.log('response.data.totalItems', typeof response.data.totalItems);
+
+      if (
+        response.data.items.length < limit &&
+        response.data.totalItems >= limit
+      ) {
+        setIsLastPage(true);
+      } else {
+        setIsLastPage(false);
+      }
+
+      if (!isLastPage) {
+        response.data.items.map((item: IBookProps) =>
+          setBooks((prev) => [...prev, item])
+        );
+      }
     } catch (error) {
       let errorMessage = 'Failed to do something exceptional';
       if (error instanceof Error) {
@@ -151,5 +165,5 @@ export function useFetchData({
     fetchData();
   }, [filters.searchParams, filters.category, filters.sorting, startId]);
 
-  return { data, books, isFetching, handleUpdate };
+  return { data, isLastPage, books, isFetching, handleUpdate };
 }
