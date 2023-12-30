@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 
-export interface IHandleInputProps {
+export interface IHandleChangeProps {
   target: { name: string; value: string };
 }
 
@@ -14,7 +14,7 @@ export function useFormData() {
   const [state, setState] = useState(initialValues);
   const [values, setValues] = useState(initialValues);
   const handleChange = useCallback(
-    (event: IHandleInputProps) => {
+    (event: IHandleChangeProps) => {
       const { name, value } = event.target;
       setState((prevState) => ({
         ...prevState,
