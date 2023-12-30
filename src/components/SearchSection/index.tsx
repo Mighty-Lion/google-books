@@ -41,7 +41,6 @@ export function SearchSection({
         <SearchForm
           onSubmit={(e) => {
             e.preventDefault();
-            console.log('event', e);
             handleSubmit(e);
           }}
         >

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { IBookProps } from '@/hooks/useFetchData';
+import { IBookProps, IFormDataProps } from '@/hooks/useFetchData';
 
-export function useSelectedBook(books: IBookProps[]) {
+export function useSelectedBook(books: IBookProps[], values: IFormDataProps) {
   const [selectedBookId, setSelectedBookId] = useState<string | undefined>(
     undefined
   );
@@ -20,6 +20,10 @@ export function useSelectedBook(books: IBookProps[]) {
   useEffect(() => {
     setSelectedBook(selectBook());
   }, [selectedBookId]);
+
+  useEffect(() => {
+    setSelectedBookId(undefined);
+  }, [values]);
 
   return { selectedBookId, setSelectedBookId, selectedBook };
 }

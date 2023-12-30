@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { SearchSection } from '@/components/SearchSection';
 import { useFormData } from '@/hooks/useFormData';
 import { useFetchData } from '@/hooks/useFetchData';
@@ -10,7 +11,7 @@ export default function Home() {
   const { values, handleInput, handleSubmit } = useFormData();
   const { data, books, isFetching, handleUpdate } = useFetchData(values);
   const { selectedBookId, setSelectedBookId, selectedBook } =
-    useSelectedBook(books);
+    useSelectedBook(books, values);
 
   return (
     <>

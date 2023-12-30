@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
 
-interface IFetchDataProps {
+ export interface IFormDataProps {
   searchParams: string;
   category: string;
   sorting: string;
@@ -82,7 +82,7 @@ export function useFetchData({
   searchParams,
   category,
   sorting,
-}: IFetchDataProps) {
+}: IFormDataProps) {
   const toastNotifications = useToastNotifications();
   const apiUrl = 'https://www.googleapis.com/books/v1/volumes';
   const apiKey = 'AIzaSyBWdD2QpIiQ_AbBmwLNeBHSTE2rY1zu-Uw';
