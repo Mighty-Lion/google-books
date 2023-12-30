@@ -38,5 +38,5 @@ export function useFormData() {
     setValues(debouncedValue);
   }, [debouncedValue]);
 
-  return { values, handleInput: handleChange, handleSubmit };
+  return { values, handleChange, handleSubmit };
 }

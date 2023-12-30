@@ -8,7 +8,7 @@ import { useSelectedBook } from '@/hooks/useSelectedBook';
 import { getRandomArbitrary } from '@/functions/getRandomArbitrary';
 
 export default function Home() {
-  const { values, handleInput, handleSubmit } = useFormData();
+  const { values, handleChange, handleSubmit } = useFormData();
   const { data, books, isLastPage, isFetching, handleUpdate } =
     useFetchData(values);
   const { selectedBookId, setSelectedBookId, selectedBook } = useSelectedBook(
@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <>
-      <SearchSection handleChange={handleInput} handleSubmit={handleSubmit} />
+      <SearchSection handleChange={handleChange} handleSubmit={handleSubmit} />
       {selectedBookId === undefined ? (
         <BooksSection
           key={getRandomArbitrary(0, 1000)}
