@@ -22,7 +22,6 @@ export function CustomSelect({
   onChange,
   onClick,
 }: ICustomSelectProps) {
-  console.log('options', options);
   const renderedOptions = options!.map((item: IOptionsProps) => (
     <option key={item.optionValue + item.optionLabel} value={item.optionValue}>
       {item.optionLabel}

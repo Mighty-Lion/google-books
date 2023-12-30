@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { SearchSection } from '@/components/SearchSection';
 import { useFormData } from '@/hooks/useFormData';
 import { useFetchData } from '@/hooks/useFetchData';
@@ -8,7 +7,8 @@ import { useSelectedBook } from '@/hooks/useSelectedBook';
 import { getRandomArbitrary } from '@/functions/getRandomArbitrary';
 
 export default function Home() {
-  const { values, handleChange, handleSubmit } = useFormData();
+  const { values, handleChange, handleSubmit, handleEnter, handleClick } =
+    useFormData();
   const { data, books, isLastPage, isFetching, handleUpdate } =
     useFetchData(values);
   const { selectedBookId, setSelectedBookId, selectedBook } = useSelectedBook(
@@ -18,7 +18,12 @@ export default function Home() {
 
   return (
     <>
-      <SearchSection handleChange={handleChange} handleSubmit={handleSubmit} />
+      <SearchSection
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        handleClick={handleClick}
+        handleEnter={handleEnter}
+      />
       {selectedBookId === undefined ? (
         <BooksSection
           key={getRandomArbitrary(0, 1000)}

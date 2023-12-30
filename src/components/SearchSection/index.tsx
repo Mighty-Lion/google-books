@@ -1,4 +1,10 @@
 import {
+  ChangeEventHandler,
+  FormEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
+} from 'react';
+import {
   HeadingWrapper,
   SearchForm,
   SearchFormContainer,
@@ -9,12 +15,16 @@ import { CustomSelect } from '@/components/CustomSelect';
 import { SearchInput } from '../SearchInput';
 
 export interface ISearchSectionProps {
-  handleChange: (e: any) => void;
-  handleSubmit: (e: any) => void;
+  handleChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement>;
+  handleSubmit: FormEventHandler<HTMLFormElement>;
+  handleClick: MouseEventHandler<HTMLSelectElement>;
+  handleEnter: KeyboardEventHandler<HTMLInputElement>;
 }
 export function SearchSection({
   handleChange,
   handleSubmit,
+  handleClick,
+  handleEnter,
 }: ISearchSectionProps) {
   const categoryOptions = [
     { optionValue: 'all', optionLabel: 'All' },
@@ -37,20 +47,11 @@ export function SearchSection({
         <HeadingWrapper>
           <Heading>Search for books</Heading>
         </HeadingWrapper>
-        <SearchForm
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit(e);
-          }}
-        >
+        <SearchForm onSubmit={handleSubmit}>
           <SearchInput
             name="searchParams"
             onChange={handleChange}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleChange(e);
-              }
-            }}
+            onKeyDown={handleEnter}
           />
           <CustomSelect
             gridArea="categories-select"
@@ -58,7 +59,7 @@ export function SearchSection({
             selectLabel="Categories"
             name="category"
             onChange={handleChange}
-            onClick={handleSubmit}
+            onClick={handleClick}
           />
           <CustomSelect
             gridArea="sorting-select"
@@ -66,7 +67,7 @@ export function SearchSection({
             selectLabel="Sorting by"
             name="sorting"
             onChange={handleChange}
-            onClick={handleSubmit}
+            onClick={handleClick}
           />
         </SearchForm>
       </SearchFormContainer>
