@@ -33,6 +33,10 @@ export const BookImgWrapper = styled.div`
   margin: 0 auto 15px auto;
   max-width: 300px;
   width: 100%;
+  
+  @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
+    max-width: 150px;
+  }
 
   img {
     display: flex;
@@ -87,6 +91,6 @@ export const BookText = styled.span<{
       : `var(--color-black-900)`};
 `;
 
-export const BookButtonWrapper = styled.div ` 
+export const BookButtonWrapper = styled.div`
   margin: 0 auto;
-`
+`;

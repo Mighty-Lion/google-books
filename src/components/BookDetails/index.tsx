@@ -48,7 +48,7 @@ export function BookDetails({
           <BookText color="var(--color-gray-500)" fontSize="16px">
             {categoriesString}
           </BookText>
-          <BookText fontSize="30px">{title}</BookText>
+          <BookText fontSize="2rem">{title}</BookText>
           <BookText textDecoration="underline">{authorsString}</BookText>
           <BookButtonWrapper>
             <Button type="button" onClick={() => setSelectedBookId(undefined)}>
