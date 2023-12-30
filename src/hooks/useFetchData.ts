@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
 
@@ -162,5 +162,5 @@ export function useFetchData({
     fetchData();
   }, [filters.searchParams, filters.category, filters.sorting, startId]);
 
-  return { data, isLastPage, books, isFetching, handleUpdate };
+  return { data, isLastPage, books, isFetching, handleUpdate, fetchData };
 }
