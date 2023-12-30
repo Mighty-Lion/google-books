@@ -7,8 +7,8 @@ export const BooksSectionWrapper = styled.section`
   padding: 20px 56px 200px 56px;
   max-width: 1440px;
   background: #646cff50;
-	
-	min-height: 100vh;
+
+  min-height: 100vh;
 
   @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
     padding: 10px 10px 100px 10px;
@@ -45,12 +45,9 @@ export const FoundedResults = styled.div`
 `;
 
 export const LoadingWrapper = styled.div`
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-gap: 10px;
-  justify-content: center;
-  align-items: center;
-  margin: 20px auto 20px auto;
+  display: flex;
+	justify-content: center;
+  margin: 20px 0;
 `;
 
 export const ToTopButtonWrapper = styled.div`

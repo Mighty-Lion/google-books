@@ -10,12 +10,13 @@ import { BookCard } from '@/components/BooksSection/partials/BookCard';
 import SearchIcon from '@/assets/images/svg/search.svg';
 import { IBookProps, IDataProps } from '@/hooks/useFetchData';
 import { Button } from '@/components/Button/index.styles';
-import {getRandomArbitrary} from "@/functions/getRandomArbitrary";
+import { getRandomArbitrary } from '@/functions/getRandomArbitrary';
 
 export interface IBooksSectionProps {
   data: IDataProps | undefined;
   books: IBookProps[];
   isFetching: boolean;
+  isLastPage: boolean;
   handleUpdate: () => void;
   setSelectedBookId: Dispatch<SetStateAction<string | undefined>>;
 }
@@ -25,6 +26,7 @@ export function BooksSection({
   books,
   handleUpdate,
   setSelectedBookId,
+  isLastPage,
 }: IBooksSectionProps) {
   const mappedBooks = books?.map((item: IBookProps) => {
     const imgSrc =
@@ -74,15 +76,17 @@ export function BooksSection({
         </ToTopButtonWrapper>
       </BooksSectionContainer>
 
-      <LoadingWrapper>
-        {!isFetching ? (
-          <Button type="button" onClick={handleUpdate}>
-            Load more ...
-          </Button>
-        ) : (
-          <div>Loading ...</div>
-        )}
-      </LoadingWrapper>
+      {!isLastPage && (
+        <LoadingWrapper>
+          {!isFetching ? (
+            <Button type="button" onClick={handleUpdate}>
+              Load more ...
+            </Button>
+          ) : (
+            <div>Loading ...</div>
+          )}
+        </LoadingWrapper>
+      )}
     </BooksSectionWrapper>
   );
 }
