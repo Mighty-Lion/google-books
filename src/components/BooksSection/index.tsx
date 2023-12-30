@@ -10,6 +10,7 @@ import { BookCard } from '@/components/BooksSection/partials/BookCard';
 import SearchIcon from '@/assets/images/svg/search.svg';
 import { IBookProps, IDataProps } from '@/hooks/useFetchData';
 import { Button } from '@/components/Button/index.styles';
+import {getRandomArbitrary} from "@/functions/getRandomArbitrary";
 
 export interface IBooksSectionProps {
   data: IDataProps | undefined;
@@ -39,7 +40,9 @@ export function BooksSection({
       : '';
     return (
       <BookCard
-        key={item.volumeInfo.title + author + imgSrc}
+        key={
+          item.volumeInfo.title + author + imgSrc + getRandomArbitrary(0, 1000)
+        }
         setSelectedBookId={setSelectedBookId}
         id={item.id}
         img={imgSrc}

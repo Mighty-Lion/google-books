@@ -7,6 +7,8 @@ export const BooksSectionWrapper = styled.section`
   padding: 20px 56px 200px 56px;
   max-width: 1440px;
   background: #646cff50;
+	
+	min-height: 100vh;
 
   @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
     padding: 10px 10px 100px 10px;
