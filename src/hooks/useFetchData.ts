@@ -132,6 +132,7 @@ export function useFetchData({
       setIsFetching(true);
       const response = await axios.get(apiUrl, { params });
       setData(response.data);
+      console.log('response.data', response.data)
       response.data.items.map((item: IBookProps) =>
         setBooks((prev) => [...prev, item])
       );

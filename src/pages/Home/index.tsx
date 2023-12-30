@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
 import { SearchSection } from '@/components/SearchSection';
 import { useFormData } from '@/hooks/useFormData';
-import { IBookProps, useFetchData } from '@/hooks/useFetchData';
+import { useFetchData } from '@/hooks/useFetchData';
 import { BooksSection } from '@/components/BooksSection';
 import { BookDetails } from '@/components/BookDetails';
 import { useSelectedBook } from '@/hooks/useSelectedBook';
+import { getRandomArbitrary } from '@/functions/getRandomArbitrary';
 
 export default function Home() {
   const { values, handleInput, handleSubmit } = useFormData();
@@ -17,7 +17,7 @@ export default function Home() {
       <SearchSection handleChange={handleInput} handleSubmit={handleSubmit} />
       {selectedBookId === undefined ? (
         <BooksSection
-          key={data?.items[0]?.volumeInfo?.title}
+          key={getRandomArbitrary(0, 1000)}
           data={data}
           books={books}
           isFetching={isFetching}
