@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { type } from 'os';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
 
 export interface IFormDataProps {
@@ -133,8 +132,6 @@ export function useFetchData({
       setIsFetching(true);
       const response = await axios.get(apiUrl, { params });
       setData(response.data);
-      console.log('response.data', response.data);
-      console.log('response.data.totalItems', typeof response.data.totalItems);
 
       if (
         response.data.items.length < limit &&
