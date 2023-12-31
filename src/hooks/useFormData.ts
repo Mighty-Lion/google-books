@@ -43,6 +43,7 @@ export function useFormData() {
   const handleEnter = (event: { key: string }) => {
     if (event.key === 'Enter') {
       setFilters(state);
+      (document.activeElement as HTMLInputElement).blur();
     }
   };
 

@@ -14,7 +14,7 @@ export function SearchInput({ onChange, name, onKeyDown }: ICustomInputProps) {
   return (
     <SearchInputWrapper isFocused={isFocused} isHovered={isHovered}>
       <input
-        id="search"
+        id={name}
         type="text"
         name={name}
         onChange={onChange}
