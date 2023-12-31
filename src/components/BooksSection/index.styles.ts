@@ -30,7 +30,7 @@ export const BooksSectionContainer = styled.div`
   }
 
   @media (max-width: ${getBreakpoint('MOBILE_M', 'down')}) {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
   }
 `;
 
