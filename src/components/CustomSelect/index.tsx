@@ -6,7 +6,7 @@ interface IOptionsProps {
   optionLabel: string;
 }
 export interface ICustomSelectProps {
-  options?: IOptionsProps[];
+  options: IOptionsProps[];
   gridArea: string;
   selectLabel?: string;
   name?: string;
@@ -22,7 +22,7 @@ export function CustomSelect({
   onChange,
   onClick,
 }: ICustomSelectProps) {
-  const renderedOptions = options!.map((item: IOptionsProps) => (
+  const renderedOptions = options.map((item: IOptionsProps) => (
     <option key={item.optionValue + item.optionLabel} value={item.optionValue}>
       {item.optionLabel}
     </option>
