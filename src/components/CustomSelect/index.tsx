@@ -11,7 +11,6 @@ export interface ICustomSelectProps {
   selectLabel?: string;
   name?: string;
   onChange?: ChangeEventHandler<HTMLSelectElement>;
-  onClick?: MouseEventHandler<HTMLSelectElement>;
 }
 
 export function CustomSelect({
@@ -20,7 +19,6 @@ export function CustomSelect({
   selectLabel,
   name,
   onChange,
-  onClick,
 }: ICustomSelectProps) {
   const renderedOptions = options.map((item: IOptionsProps) => (
     <option key={item.optionValue + item.optionLabel} value={item.optionValue}>
@@ -31,7 +29,7 @@ export function CustomSelect({
   return (
     <CustomSelectWrapper gridArea={gridArea}>
       {selectLabel && <label>{selectLabel}</label>}
-      <select name={name} onChange={onChange} onClick={onClick}>
+      <select name={name} onChange={onChange}>
         {renderedOptions}
       </select>
     </CustomSelectWrapper>

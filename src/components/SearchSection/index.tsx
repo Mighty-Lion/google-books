@@ -15,16 +15,17 @@ import { CustomSelect } from '@/components/CustomSelect';
 import { SearchInput } from '../SearchInput';
 
 export interface ISearchSectionProps {
-  handleChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement>;
+  handleChange: ChangeEventHandler<HTMLInputElement>;
   handleSubmit: FormEventHandler<HTMLFormElement>;
   handleClick: MouseEventHandler<HTMLSelectElement>;
   handleEnter: KeyboardEventHandler<HTMLInputElement>;
+  handleChangeSelect: ChangeEventHandler<HTMLSelectElement>;
 }
 export function SearchSection({
   handleChange,
   handleSubmit,
-  handleClick,
   handleEnter,
+  handleChangeSelect,
 }: ISearchSectionProps) {
   const categoryOptions = [
     { optionValue: 'all', optionLabel: 'All' },
@@ -58,16 +59,14 @@ export function SearchSection({
             options={categoryOptions}
             selectLabel="Categories"
             name="category"
-            onChange={handleChange}
-            onClick={handleClick}
+            onChange={handleChangeSelect}
           />
           <CustomSelect
             gridArea="sorting-select"
             options={sortingOptions}
             selectLabel="Sorting by"
             name="sorting"
-            onChange={handleChange}
-            onClick={handleClick}
+            onChange={handleChangeSelect}
           />
         </SearchForm>
       </SearchFormContainer>

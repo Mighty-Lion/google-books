@@ -1,5 +1,4 @@
 import { FormEvent, useCallback, useEffect, useState } from 'react';
-import { useDebounce } from '@/hooks/useDebounce';
 
 export interface IHandleChangeProps {
   target: { name: string; value: string };
@@ -12,7 +11,7 @@ export function useFormData() {
     sorting: 'relevance',
   };
   const [state, setState] = useState(initialValues);
-  const [values, setValues] = useState(initialValues);
+  const [filters, setFilters] = useState(initialValues);
   const handleChange = useCallback(
     (event: IHandleChangeProps) => {
       const { name, value } = event.target;
@@ -27,30 +26,46 @@ export function useFormData() {
   const handleSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      setValues(state);
+      setFilters(state);
     },
     [state]
   );
 
+  const handleChangeSelect = (event: IHandleChangeProps) => {
+    console.log('handleChangeSelect')
+    const { name, value } = event.target;
+    setFilters((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   const handleClick = () => {
-    setValues(state);
+    setFilters(state);
   };
 
   const handleEnter = (event: { key: string }) => {
     if (event.key === 'Enter') {
-      setValues(state);
+      setFilters(state);
     }
   };
 
-  const debouncedValue = useDebounce<{
-    searchParams: string;
-    category: string;
-    sorting: string;
-  }>(state, 5000);
+  // const debouncedValue = useDebounce<{
+  //   searchParams: string;
+  //   category: string;
+  //   sorting: string;
+  // }>(state, 5000);
+  //
+  // useEffect(() => {
+  //   setFilters(debouncedValue);
+  // }, [debouncedValue]);
 
-  useEffect(() => {
-    setValues(debouncedValue);
-  }, [debouncedValue]);
-
-  return { values, handleChange, handleSubmit, handleClick, handleEnter };
+  return {
+    filters,
+    handleChange,
+    handleSubmit,
+    handleClick,
+    handleEnter,
+    handleChangeSelect,
+  };
 }

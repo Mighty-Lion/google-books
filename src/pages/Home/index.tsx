@@ -5,16 +5,15 @@ import { BooksSection } from '@/components/BooksSection';
 import { BookDetails } from '@/components/BookDetails';
 import { useSelectedBook } from '@/hooks/useSelectedBook';
 import { getRandomArbitrary } from '@/functions/getRandomArbitrary';
-import {useScrollDown} from "@/hooks/useScrollDown";
 
 export default function Home() {
-  const { values, handleChange, handleSubmit, handleEnter, handleClick } =
+  const { filters, handleChange, handleSubmit, handleEnter, handleClick, handleChangeSelect } =
     useFormData();
   const { data, books, isLastPage, isFetching, handleUpdate, fetchData } =
-    useFetchData(values);
+    useFetchData(filters);
   const { selectedBookId, setSelectedBookId, selectedBook } = useSelectedBook(
     books,
-    values
+    filters
   );
 
   return (
@@ -24,6 +23,7 @@ export default function Home() {
         handleSubmit={handleSubmit}
         handleClick={handleClick}
         handleEnter={handleEnter}
+        handleChangeSelect={handleChangeSelect}
       />
       {selectedBookId === undefined ? (
         <BooksSection
