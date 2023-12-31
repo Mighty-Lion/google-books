@@ -16,7 +16,7 @@ export const SearchInputWrapper = styled.div<{
   ${({ isFocused }) =>
     isFocused &&
     `
-      box-shadow: 0 4px 4px 0 var(--color-blue-400);
+      box-shadow: 0 4px 4px 0 var(--color-blue-500);
   `};
 
   ${({ isHovered }) =>
@@ -56,7 +56,7 @@ export const SearchInputWrapper = styled.div<{
     align-items: center;
     justify-content: center;
     border: none;
-    height: 99%;
+    height: 100%;
     width: 50px;
     outline: none;
     cursor: pointer;
