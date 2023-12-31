@@ -47,4 +47,8 @@ export const SearchForm = styled.form`
       'sorting-select';
     padding: 0;
   }
+	
+	@media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
+    max-width: 350px;
+  }
 `;
