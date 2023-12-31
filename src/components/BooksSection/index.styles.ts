@@ -52,6 +52,6 @@ export const LoadingWrapper = styled.div`
 
 export const ToTopButtonWrapper = styled.div`
   position: fixed;
-  bottom: 10px;
-  right: 3%;
+  bottom: 20px;
+  right: 5%;
 `;

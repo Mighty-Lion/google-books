@@ -6,9 +6,10 @@ export const Button = styled.button`
   align-items: center;
   padding: 0 10px;
   border: none;
-  height: 30px;
+  height: 50px;
   width: 100%;
-  max-width: 100px;
+  max-width: 150px;
+	font-size: 1rem;
   border-radius: 5px;
   background: #646cff;
   color: white;
