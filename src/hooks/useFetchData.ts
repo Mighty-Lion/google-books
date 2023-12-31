@@ -84,8 +84,8 @@ export function useFetchData({
   sorting,
 }: IFormDataProps) {
   const toastNotifications = useToastNotifications();
-  const apiUrl = 'https://www.googleapis.com/books/v1/volumes';
-  const apiKey = 'AIzaSyBWdD2QpIiQ_AbBmwLNeBHSTE2rY1zu-Uw';
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   const [filters, setFilters] = useState({
     searchParams: '',
