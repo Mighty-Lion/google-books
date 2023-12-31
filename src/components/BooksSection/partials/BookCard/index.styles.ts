@@ -9,6 +9,7 @@ export const BookCardContainer = styled.div`
   background: var(--color-gray-200);
   border-radius: 5px;
   transition: 0.5s all;
+	cursor: pointer;
 
   &:hover,
   &:focus,
