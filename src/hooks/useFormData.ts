@@ -32,20 +32,26 @@ export function useFormData() {
     [state]
   );
 
-  const handleChangeSelect = (event: IHandleChangeProps) => {
-    const { name, value } = event.target;
-    setFilters((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const handleChangeSelect = useCallback(
+    (event: IHandleChangeProps) => {
+      const { name, value } = event.target;
+      setFilters((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    },
+    [setFilters]
+  );
 
-  const handleEnter = (event: { key: string }) => {
-    if (event.key === 'Enter') {
-      setFilters(state);
-      (document.activeElement as HTMLInputElement).blur();
-    }
-  };
+  const handleEnter = useCallback(
+    (event: { key: string }) => {
+      if (event.key === 'Enter') {
+        setFilters(state);
+        (document.activeElement as HTMLInputElement).blur();
+      }
+    },
+    [state]
+  );
 
   const debouncedValue = useDebounce<{
     searchParams: string;
