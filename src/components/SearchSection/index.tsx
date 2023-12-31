@@ -2,7 +2,6 @@ import {
   ChangeEventHandler,
   FormEventHandler,
   KeyboardEventHandler,
-  MouseEventHandler,
 } from 'react';
 import {
   HeadingWrapper,
@@ -17,7 +16,6 @@ import { SearchInput } from '../SearchInput';
 export interface ISearchSectionProps {
   handleChange: ChangeEventHandler<HTMLInputElement>;
   handleSubmit: FormEventHandler<HTMLFormElement>;
-  handleClick: MouseEventHandler<HTMLSelectElement>;
   handleEnter: KeyboardEventHandler<HTMLInputElement>;
   handleChangeSelect: ChangeEventHandler<HTMLSelectElement>;
 }

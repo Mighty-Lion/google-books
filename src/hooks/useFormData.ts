@@ -1,4 +1,5 @@
 import { FormEvent, useCallback, useEffect, useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 
 export interface IHandleChangeProps {
   target: { name: string; value: string };
@@ -32,16 +33,11 @@ export function useFormData() {
   );
 
   const handleChangeSelect = (event: IHandleChangeProps) => {
-    console.log('handleChangeSelect')
     const { name, value } = event.target;
     setFilters((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-  };
-
-  const handleClick = () => {
-    setFilters(state);
   };
 
   const handleEnter = (event: { key: string }) => {
@@ -50,21 +46,20 @@ export function useFormData() {
     }
   };
 
-  // const debouncedValue = useDebounce<{
-  //   searchParams: string;
-  //   category: string;
-  //   sorting: string;
-  // }>(state, 5000);
-  //
-  // useEffect(() => {
-  //   setFilters(debouncedValue);
-  // }, [debouncedValue]);
+  const debouncedValue = useDebounce<{
+    searchParams: string;
+    category: string;
+    sorting: string;
+  }>(state, 5000);
+
+  useEffect(() => {
+    setFilters(debouncedValue);
+  }, [debouncedValue]);
 
   return {
     filters,
     handleChange,
     handleSubmit,
-    handleClick,
     handleEnter,
     handleChangeSelect,
   };

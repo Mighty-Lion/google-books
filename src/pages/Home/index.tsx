@@ -7,8 +7,13 @@ import { useSelectedBook } from '@/hooks/useSelectedBook';
 import { getRandomArbitrary } from '@/functions/getRandomArbitrary';
 
 export default function Home() {
-  const { filters, handleChange, handleSubmit, handleEnter, handleClick, handleChangeSelect } =
-    useFormData();
+  const {
+    filters,
+    handleChange,
+    handleSubmit,
+    handleEnter,
+    handleChangeSelect,
+  } = useFormData();
   const { data, books, isLastPage, isFetching, handleUpdate, fetchData } =
     useFetchData(filters);
   const { selectedBookId, setSelectedBookId, selectedBook } = useSelectedBook(
@@ -21,7 +26,6 @@ export default function Home() {
       <SearchSection
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        handleClick={handleClick}
         handleEnter={handleEnter}
         handleChangeSelect={handleChangeSelect}
       />

@@ -1,4 +1,4 @@
-import { ChangeEventHandler, MouseEventHandler } from 'react';
+import { ChangeEventHandler } from 'react';
 import { CustomSelectWrapper } from '@/components/CustomSelect/index.styles';
 
 interface IOptionsProps {
