@@ -26,6 +26,10 @@ export const CustomSelectWrapper = styled.div<{ gridArea: string | undefined }>`
     font-style: normal;
     font-size: 1.15rem;
     color: var(--color-white-0);
+
+    @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
+      font-size: 0.8rem;
+    }
   }
 
   select {
