@@ -1,4 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import {
   BookButtonWrapper,
   BookDetailsContainer,
@@ -11,6 +18,7 @@ import { IBookProps } from '@/hooks/useFetchData';
 import SearchIcon from '@/assets/images/svg/search.svg';
 import { Button } from '@/components/Button/index.styles';
 import { convertArrayToString } from '@/functions/convertArrayToString';
+import { LoadingSpinner } from '@/components/LoadingSpiner';
 
 interface IBookDetailsProps {
   selectedBook: IBookProps | undefined;
@@ -25,38 +33,57 @@ export function BookDetails({
   const authorsArray = selectedBook?.volumeInfo?.authors;
   const categoriesArray = selectedBook?.volumeInfo?.categories;
 
-  const imgSmallThumbnail =
-    imageLinks?.smallThumbnail !== undefined
-      ? imageLinks.smallThumbnail
-      : SearchIcon;
-  const imgSrc =
-    imageLinks?.thumbnail !== undefined
-      ? imageLinks.thumbnail
-      : imgSmallThumbnail;
+  const [imgScr, setImgSrc] = useState('');
+
+  const selectedImgSrc = useCallback(() => {
+    if (imageLinks?.thumbnail) {
+      return setImgSrc(imageLinks?.thumbnail);
+    }
+    if (imageLinks?.smallThumbnail) {
+      return setImgSrc(imageLinks?.smallThumbnail);
+    }
+    return setImgSrc(SearchIcon);
+  }, [imageLinks?.smallThumbnail, imageLinks?.thumbnail]);
+
+  useEffect(() => {
+    selectedImgSrc();
+  }, [selectedImgSrc]);
+
+  const Image = useCallback(() => {
+    if (imgScr) return <img src={imgScr} alt="img" />;
+    return <LoadingSpinner />;
+  }, [imgScr]);
 
   const authorsString = convertArrayToString(authorsArray, ', ');
 
   const categoriesString = convertArrayToString(categoriesArray, ' / ');
 
-  return (
-    <BookDetailsWrapper>
-      <BookDetailsContainer>
-        <BookImgWrapper>
-          <img src={imgSrc} alt="img" />
-        </BookImgWrapper>
-        <BookInformation>
-          <BookText color="var(--color-gray-500)" fontSize="16px">
-            {categoriesString}
-          </BookText>
-          <BookText fontSize="2rem">{title}</BookText>
-          <BookText textDecoration="underline">{authorsString}</BookText>
-          <BookButtonWrapper>
-            <Button type="button" onClick={() => setSelectedBookId(undefined)}>
-              Back
-            </Button>
-          </BookButtonWrapper>
-        </BookInformation>
-      </BookDetailsContainer>
-    </BookDetailsWrapper>
-  );
+  const cachedValue = useMemo(() => {
+    return (
+      <BookDetailsWrapper>
+        <BookDetailsContainer>
+          <BookImgWrapper>
+            <Image />
+          </BookImgWrapper>
+          <BookInformation>
+            <BookText color="var(--color-gray-500)" fontSize="16px">
+              {categoriesString}
+            </BookText>
+            <BookText fontSize="2rem">{title}</BookText>
+            <BookText textDecoration="underline">{authorsString}</BookText>
+            <BookButtonWrapper>
+              <Button
+                type="button"
+                onClick={() => setSelectedBookId(undefined)}
+              >
+                Back
+              </Button>
+            </BookButtonWrapper>
+          </BookInformation>
+        </BookDetailsContainer>
+      </BookDetailsWrapper>
+    );
+  }, [Image, authorsString, categoriesString, setSelectedBookId, title]);
+
+  return cachedValue;
 }
