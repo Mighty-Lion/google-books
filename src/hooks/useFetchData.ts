@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { log } from 'util';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
 
 export interface IFormDataProps {
@@ -92,11 +93,11 @@ export function useFetchData({
     category: 'all',
     sorting: 'relevance',
   });
-  const [data, setData] = useState<IDataProps | undefined>(undefined);
   const [books, setBooks] = useState<IBookProps[]>([]);
   const [isLastPage, setIsLastPage] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [startId, setStartId] = useState(0);
+  const [totalItems, setTotalItems] = useState<number | undefined>(0);
   const limit = 30;
 
   useEffect(() => {
@@ -131,27 +132,31 @@ export function useFetchData({
     try {
       setIsFetching(true);
       const response = await axios.get(apiUrl, { params });
-      setData(response.data);
+
+      setTotalItems(response.data?.totalItems);
+
+      if (response.data?.items) {
+        response.data.items.map((item: IBookProps) =>
+          setBooks((prev) => [...prev, item])
+        );
+      }
 
       if (
-        response.data.items.length < limit &&
-        response.data.totalItems >= limit
+        response.data.items?.length < limit ||
+        response.data.totalItems < limit
       ) {
         setIsLastPage(true);
       } else {
         setIsLastPage(false);
       }
 
-      if (!isLastPage) {
-        response.data.items.map((item: IBookProps) =>
-          setBooks((prev) => [...prev, item])
-        );
-      }
+      console.log('response', response.data);
     } catch (error) {
       let errorMessage = 'Failed to do something exceptional';
       if (error instanceof Error) {
         errorMessage = error.message;
       }
+      console.log('error', errorMessage);
       toastNotifications.handleFailure(errorMessage);
     } finally {
       setIsFetching(false);
@@ -162,5 +167,11 @@ export function useFetchData({
     fetchData();
   }, [filters.searchParams, filters.category, filters.sorting, startId]);
 
-  return { data, isLastPage, books, isFetching, handleUpdate, fetchData };
+  return {
+    totalItems,
+    isLastPage,
+    books,
+    isFetching,
+    handleUpdate,
+  };
 }
