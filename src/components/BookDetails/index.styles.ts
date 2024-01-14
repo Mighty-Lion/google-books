@@ -31,6 +31,7 @@ export const BookDetailsContainer = styled.div`
 
 export const BookImgWrapper = styled.div`
   margin: 0 auto 15px auto;
+  min-height: 450px;
   max-width: 300px;
   width: 100%;
 

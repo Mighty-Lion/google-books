@@ -44,6 +44,8 @@ export function BookDetails({
     if (imageLinks?.smallThumbnail) {
       return setImgSrc(imageLinks?.smallThumbnail);
     }
+
+    return setImgSrc(SearchIcon);
   }, [imageLinks?.smallThumbnail, imageLinks?.thumbnail]);
 
   useEffect(() => {
@@ -51,15 +53,22 @@ export function BookDetails({
   }, [selectedImgSrc]);
 
   const Image = useCallback(() => {
-    if (imgScr) return <img src={imgScr || SearchIcon} alt="img" />;
-    return <LoadingSpinner />;
+    return (
+      <img
+        src={imgScr}
+        onLoad={() => {
+          return <LoadingSpinner />;
+        }}
+        alt="img"
+      />
+    );
   }, [imgScr]);
 
   const authorsString = convertArrayToString(authorsArray, ', ');
 
   const categoriesString = convertArrayToString(categoriesArray, ' / ');
 
-  const cachedValue = useMemo(() => {
+  return useMemo(() => {
     return (
       <BookDetailsWrapper>
         <BookDetailsContainer>
@@ -93,6 +102,4 @@ export function BookDetails({
     setSelectedBookId,
     title,
   ]);
-
-  return cachedValue;
 }
