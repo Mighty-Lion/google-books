@@ -9,7 +9,7 @@ export const BookCardContainer = styled.div`
   background: var(--color-gray-200);
   border-radius: 5px;
   transition: 0.5s all;
-	cursor: pointer;
+  cursor: pointer;
 
   &:hover,
   &:focus,
@@ -22,6 +22,7 @@ export const BookCardContainer = styled.div`
 export const BookCardImageWrapper = styled.div`
   margin: 0 auto 15px auto;
   max-width: 200px;
+  min-height: 230px;
   width: 100%;
 
   img {
