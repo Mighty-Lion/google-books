@@ -16,7 +16,7 @@ export default function Home() {
     handleEnter,
     handleChangeSelect,
   } = useFormData();
-  const { data, books, isLastPage, isFetching, handleUpdate, fetchData } =
+  const { books, isLastPage, isFetching, handleUpdate, totalItems } =
     useFetchData(filters);
   const { selectedBookId, setSelectedBookId, selectedBook } = useSelectedBook(
     books,
@@ -36,13 +36,13 @@ export default function Home() {
       {selectedBookId === undefined ? (
         <BooksSection
           key={getRandomArbitrary(0, 1000)}
-          data={data}
           books={books}
           isLastPage={isLastPage}
           isFetching={isFetching}
           handleUpdate={handleUpdate}
           setSelectedBookId={setSelectedBookId}
           setScrollPosition={setScrollPosition}
+          totalItems={totalItems}
         />
       ) : (
         <BookDetails

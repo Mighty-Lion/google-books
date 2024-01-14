@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useMemo } from 'react';
+import { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import {
   FoundedResults,
   BooksSectionContainer,
@@ -8,28 +8,28 @@ import {
 } from '@/components/BooksSection/index.styles';
 import { BookCard } from '@/components/BooksSection/partials/BookCard';
 import SearchIcon from '@/assets/images/svg/search.svg';
-import { IBookProps, IDataProps } from '@/hooks/useFetchData';
+import { IBookProps } from '@/hooks/useFetchData';
 import { Button } from '@/components/Button/index.styles';
 import { getRandomArbitrary } from '@/functions/getRandomArbitrary';
 import { LoadingSpinner } from '@/components/LoadingSpiner';
 
 export interface IBooksSectionProps {
-  data: IDataProps | undefined;
   books: IBookProps[];
   isFetching: boolean;
   isLastPage: boolean;
   handleUpdate: () => void;
   setSelectedBookId: Dispatch<SetStateAction<string | undefined>>;
   setScrollPosition: Dispatch<SetStateAction<number>>;
+  totalItems: number | undefined;
 }
 export function BooksSection({
   isFetching,
-  data,
   books,
   handleUpdate,
   setSelectedBookId,
   setScrollPosition,
   isLastPage,
+  totalItems,
 }: IBooksSectionProps) {
   const mappedBooks = books?.map((item: IBookProps) => {
     const imgSrc =
@@ -63,8 +63,10 @@ export function BooksSection({
   return useMemo(() => {
     return (
       <BooksSectionWrapper>
-        {data?.totalItems && (
-          <FoundedResults>Found {data.totalItems} results</FoundedResults>
+        {totalItems ? (
+          <FoundedResults>Found {totalItems} results</FoundedResults>
+        ) : (
+          <FoundedResults>Found {books.length} results</FoundedResults>
         )}
         <BooksSectionContainer>
           {mappedBooks}
@@ -95,5 +97,5 @@ export function BooksSection({
         )}
       </BooksSectionWrapper>
     );
-  }, [data?.totalItems, handleUpdate, isFetching, isLastPage, mappedBooks]);
+  }, [totalItems, handleUpdate, isFetching, isLastPage, mappedBooks]);
 }
