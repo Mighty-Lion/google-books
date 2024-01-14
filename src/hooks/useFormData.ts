@@ -69,8 +69,6 @@ export function useFormData() {
     setFilters(debouncedValue);
   }, [debouncedValue]);
 
-  console.log('filters', filters)
-
   return {
     filters,
     handleChange,
