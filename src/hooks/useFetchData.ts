@@ -150,7 +150,6 @@ export function useFetchData({
         setIsLastPage(false);
       }
 
-      console.log('response', response.data);
     } catch (error) {
       let errorMessage = 'Failed to do something exceptional';
       if (error instanceof Error) {
