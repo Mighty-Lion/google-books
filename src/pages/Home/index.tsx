@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { SearchSection } from '@/components/SearchSection';
 import { useFormData } from '@/hooks/useFormData';
 import { useFetchData } from '@/hooks/useFetchData';
@@ -7,6 +6,7 @@ import { BookDetails } from '@/components/BookDetails';
 import { useSelectedBook } from '@/hooks/useSelectedBook';
 import { getRandomArbitrary } from '@/functions/getRandomArbitrary';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
+import { HomeContainer } from '@/pages/Home/index.styles';
 
 export default function Home() {
   const {
@@ -26,7 +26,7 @@ export default function Home() {
   const { setScrollPosition } = useScrollPosition(selectedBookId);
 
   return (
-    <>
+    <HomeContainer>
       <SearchSection
         handleChange={handleChange}
         handleSubmit={handleSubmit}
@@ -50,6 +50,6 @@ export default function Home() {
           setSelectedBookId={setSelectedBookId}
         />
       )}
-    </>
+    </HomeContainer>
   );
 }
