@@ -25,7 +25,7 @@ export const BookCard = ({
   setSelectedBookId,
   setScrollPosition,
 }: IBookCardProps) => {
-  const cachedValue = useMemo(() => {
+  return useMemo(() => {
     return (
       <BookCardContainer
         onClick={() => {
@@ -47,7 +47,5 @@ export const BookCard = ({
         </TextWrapper>
       </BookCardContainer>
     );
-  }, [img, category, author, name]);
-
-  return cachedValue;
+  }, [img, category, name, author, setSelectedBookId, id, setScrollPosition]);
 };

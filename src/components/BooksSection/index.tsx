@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useMemo } from 'react';
 import {
   FoundedResults,
   BooksSectionContainer,
@@ -11,7 +11,7 @@ import SearchIcon from '@/assets/images/svg/search.svg';
 import { IBookProps, IDataProps } from '@/hooks/useFetchData';
 import { Button } from '@/components/Button/index.styles';
 import { getRandomArbitrary } from '@/functions/getRandomArbitrary';
-import {LoadingSpinner} from "@/components/LoadingSpiner";
+import { LoadingSpinner } from '@/components/LoadingSpiner';
 
 export interface IBooksSectionProps {
   data: IDataProps | undefined;
@@ -60,38 +60,40 @@ export function BooksSection({
     );
   });
 
-  return (
-    <BooksSectionWrapper>
-      {data?.totalItems && (
-        <FoundedResults>Found {data.totalItems} results</FoundedResults>
-      )}
-      <BooksSectionContainer>
-        {mappedBooks}
-        <ToTopButtonWrapper>
-          <Button
-            onClick={() =>
-              window.scrollTo({
-                behavior: 'smooth',
-                top: 0,
-              })
-            }
-          >
-            To top
-          </Button>
-        </ToTopButtonWrapper>
-      </BooksSectionContainer>
-
-      {!isLastPage && (
-        <LoadingWrapper>
-          {!isFetching ? (
-            <Button type="button" onClick={handleUpdate}>
-              Load more ...
+  return useMemo(() => {
+    return (
+      <BooksSectionWrapper>
+        {data?.totalItems && (
+          <FoundedResults>Found {data.totalItems} results</FoundedResults>
+        )}
+        <BooksSectionContainer>
+          {mappedBooks}
+          <ToTopButtonWrapper>
+            <Button
+              onClick={() =>
+                window.scrollTo({
+                  behavior: 'smooth',
+                  top: 0,
+                })
+              }
+            >
+              To top
             </Button>
-          ) : (
-            <LoadingSpinner />
-          )}
-        </LoadingWrapper>
-      )}
-    </BooksSectionWrapper>
-  );
+          </ToTopButtonWrapper>
+        </BooksSectionContainer>
+
+        {!isLastPage && (
+          <LoadingWrapper>
+            {!isFetching ? (
+              <Button type="button" onClick={handleUpdate}>
+                Load more ...
+              </Button>
+            ) : (
+              <LoadingSpinner />
+            )}
+          </LoadingWrapper>
+        )}
+      </BooksSectionWrapper>
+    );
+  }, [data?.totalItems, handleUpdate, isFetching, isLastPage, mappedBooks]);
 }
