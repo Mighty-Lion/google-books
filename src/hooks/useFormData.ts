@@ -35,6 +35,12 @@ export function useFormData() {
   const handleChangeSelect = useCallback(
     (event: IHandleChangeProps) => {
       const { name, value } = event.target;
+      // for debouncedValue
+      setState((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+      // to click on the select option
       setFilters((prevState) => ({
         ...prevState,
         [name]: value,
@@ -62,6 +68,8 @@ export function useFormData() {
   useEffect(() => {
     setFilters(debouncedValue);
   }, [debouncedValue]);
+
+  console.log('filters', filters)
 
   return {
     filters,
