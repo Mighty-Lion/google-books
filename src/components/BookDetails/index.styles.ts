@@ -33,7 +33,7 @@ export const BookImgWrapper = styled.div`
   margin: 0 auto 15px auto;
   max-width: 300px;
   width: 100%;
-  
+
   @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
     max-width: 150px;
   }
@@ -47,7 +47,7 @@ export const BookImgWrapper = styled.div`
 
 export const BookInformation = styled.div`
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto auto;
   grid-gap: 20px;
 `;
 
@@ -93,4 +93,13 @@ export const BookText = styled.span<{
 
 export const BookButtonWrapper = styled.div`
   margin: 0 auto;
+`;
+
+export const BookLink = styled.a`
+  font-family: Roboto, sans-serif;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 15px;
+  text-decoration: underline;
+  color: var(--color-blue-500);
 `;

@@ -12,6 +12,7 @@ import {
   BookDetailsWrapper,
   BookImgWrapper,
   BookInformation,
+  BookLink,
   BookText,
 } from '@/components/BookDetails/index.styles';
 import { IBookProps } from '@/hooks/useFetchData';
@@ -32,6 +33,7 @@ export function BookDetails({
   const imageLinks = selectedBook?.volumeInfo?.imageLinks;
   const authorsArray = selectedBook?.volumeInfo?.authors;
   const categoriesArray = selectedBook?.volumeInfo?.categories;
+  const canonicalVolumeLink = selectedBook?.volumeInfo.canonicalVolumeLink;
 
   const [imgScr, setImgSrc] = useState('');
 
@@ -42,7 +44,6 @@ export function BookDetails({
     if (imageLinks?.smallThumbnail) {
       return setImgSrc(imageLinks?.smallThumbnail);
     }
-    return setImgSrc(SearchIcon);
   }, [imageLinks?.smallThumbnail, imageLinks?.thumbnail]);
 
   useEffect(() => {
@@ -50,7 +51,7 @@ export function BookDetails({
   }, [selectedImgSrc]);
 
   const Image = useCallback(() => {
-    if (imgScr) return <img src={imgScr} alt="img" />;
+    if (imgScr) return <img src={imgScr || SearchIcon} alt="img" />;
     return <LoadingSpinner />;
   }, [imgScr]);
 
@@ -71,6 +72,7 @@ export function BookDetails({
             </BookText>
             <BookText fontSize="2rem">{title}</BookText>
             <BookText textDecoration="underline">{authorsString}</BookText>
+            <BookLink href={canonicalVolumeLink}>Canonical VolumeLink</BookLink>
             <BookButtonWrapper>
               <Button
                 type="button"
@@ -83,7 +85,14 @@ export function BookDetails({
         </BookDetailsContainer>
       </BookDetailsWrapper>
     );
-  }, [Image, authorsString, categoriesString, setSelectedBookId, title]);
+  }, [
+    Image,
+    authorsString,
+    canonicalVolumeLink,
+    categoriesString,
+    setSelectedBookId,
+    title,
+  ]);
 
   return cachedValue;
 }
