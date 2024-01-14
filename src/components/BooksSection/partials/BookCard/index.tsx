@@ -13,6 +13,7 @@ export interface IBookCardProps {
   name?: string | undefined;
   author?: string | undefined;
   setSelectedBookId: Dispatch<SetStateAction<string | undefined>>;
+  setScrollPosition: Dispatch<SetStateAction<number>>;
 }
 
 export const BookCard = ({
@@ -22,10 +23,16 @@ export const BookCard = ({
   name,
   id,
   setSelectedBookId,
+  setScrollPosition,
 }: IBookCardProps) => {
   const cachedValue = useMemo(() => {
     return (
-      <BookCardContainer onClick={() => setSelectedBookId(id)}>
+      <BookCardContainer
+        onClick={() => {
+          setSelectedBookId(id);
+          setScrollPosition(window.scrollY);
+        }}
+      >
         <BookCardImageWrapper>
           <img src={img} alt="img" />
         </BookCardImageWrapper>

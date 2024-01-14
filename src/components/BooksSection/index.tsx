@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import {
   FoundedResults,
   BooksSectionContainer,
@@ -19,6 +19,7 @@ export interface IBooksSectionProps {
   isLastPage: boolean;
   handleUpdate: () => void;
   setSelectedBookId: Dispatch<SetStateAction<string | undefined>>;
+  setScrollPosition: Dispatch<SetStateAction<number>>;
 }
 export function BooksSection({
   isFetching,
@@ -26,6 +27,7 @@ export function BooksSection({
   books,
   handleUpdate,
   setSelectedBookId,
+  setScrollPosition,
   isLastPage,
 }: IBooksSectionProps) {
   const mappedBooks = books?.map((item: IBookProps) => {
@@ -40,12 +42,14 @@ export function BooksSection({
           ''
         )
       : '';
+
     return (
       <BookCard
         key={
           item.volumeInfo.title + author + imgSrc + getRandomArbitrary(0, 1000)
         }
         setSelectedBookId={setSelectedBookId}
+        setScrollPosition={setScrollPosition}
         id={item.id}
         img={imgSrc}
         category={item.volumeInfo?.categories}

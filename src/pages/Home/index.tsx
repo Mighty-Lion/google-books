@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { SearchSection } from '@/components/SearchSection';
 import { useFormData } from '@/hooks/useFormData';
 import { useFetchData } from '@/hooks/useFetchData';
@@ -5,6 +6,7 @@ import { BooksSection } from '@/components/BooksSection';
 import { BookDetails } from '@/components/BookDetails';
 import { useSelectedBook } from '@/hooks/useSelectedBook';
 import { getRandomArbitrary } from '@/functions/getRandomArbitrary';
+import { useScrollPosition } from '@/hooks/useScrollPosition';
 
 export default function Home() {
   const {
@@ -20,6 +22,8 @@ export default function Home() {
     books,
     filters
   );
+
+  const { setScrollPosition } = useScrollPosition(selectedBookId);
 
   return (
     <>
@@ -38,6 +42,7 @@ export default function Home() {
           isFetching={isFetching}
           handleUpdate={handleUpdate}
           setSelectedBookId={setSelectedBookId}
+          setScrollPosition={setScrollPosition}
         />
       ) : (
         <BookDetails
