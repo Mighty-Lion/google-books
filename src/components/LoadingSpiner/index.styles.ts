@@ -11,6 +11,10 @@ const spinner = keyframes`
     `;
 
 export const SpinnerContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
   margin: 0 auto;
 `;
 

@@ -11,6 +11,7 @@ import SearchIcon from '@/assets/images/svg/search.svg';
 import { IBookProps, IDataProps } from '@/hooks/useFetchData';
 import { Button } from '@/components/Button/index.styles';
 import { getRandomArbitrary } from '@/functions/getRandomArbitrary';
+import {LoadingSpinner} from "@/components/LoadingSpiner";
 
 export interface IBooksSectionProps {
   data: IDataProps | undefined;
@@ -87,7 +88,7 @@ export function BooksSection({
               Load more ...
             </Button>
           ) : (
-            <div>Loading ...</div>
+            <LoadingSpinner />
           )}
         </LoadingWrapper>
       )}
