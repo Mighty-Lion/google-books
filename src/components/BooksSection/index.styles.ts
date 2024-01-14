@@ -5,6 +5,7 @@ export const BooksSectionWrapper = styled.section`
   position: relative;
   margin: 0 auto;
   padding: 20px 56px 200px 56px;
+	width: 100%;
   max-width: 1440px;
   background: #646cff50;
 
