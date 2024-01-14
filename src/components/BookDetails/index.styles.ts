@@ -4,6 +4,7 @@ import { getBreakpoint } from '@/Breakpoinst';
 export const BookDetailsWrapper = styled.section`
   margin: 0 auto;
   padding: 20px 56px 200px 56px;
+  width: 100%;
   max-width: 1440px;
   height: 100%;
   background: #646cff50;
