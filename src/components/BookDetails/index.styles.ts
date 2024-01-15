@@ -38,6 +38,7 @@ export const BookImgWrapper = styled.div`
 
   @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
     max-width: 150px;
+    min-height: 150px;
   }
 
   img {
@@ -51,6 +52,11 @@ export const BookInformation = styled.div`
   display: grid;
   grid-template-rows: auto auto 1fr auto auto;
   grid-gap: 20px;
+  
+
+  @media (max-width: ${getBreakpoint('MOBILE_LANDSCAPE', 'down')}) {
+    justify-content: center;
+  }
 `;
 
 export const BookText = styled.span<{
