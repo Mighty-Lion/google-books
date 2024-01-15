@@ -20,6 +20,7 @@ import SearchIcon from '@/assets/images/svg/search.svg';
 import { Button } from '@/components/Button/index.styles';
 import { convertArrayToString } from '@/functions/convertArrayToString';
 import { LoadingSpinner } from '@/components/LoadingSpiner';
+import { BookDetailsImage } from 'partials/BookDetailsImage';
 
 interface IBookDetailsProps {
   selectedBook: IBookProps | undefined;
@@ -35,35 +36,6 @@ export function BookDetails({
   const categoriesArray = selectedBook?.volumeInfo?.categories;
   const canonicalVolumeLink = selectedBook?.volumeInfo.canonicalVolumeLink;
 
-  const [imgScr, setImgSrc] = useState('');
-
-  const selectedImgSrc = useCallback(() => {
-    if (imageLinks?.thumbnail) {
-      return setImgSrc(imageLinks?.thumbnail);
-    }
-    if (imageLinks?.smallThumbnail) {
-      return setImgSrc(imageLinks?.smallThumbnail);
-    }
-
-    return setImgSrc(SearchIcon);
-  }, [imageLinks?.smallThumbnail, imageLinks?.thumbnail]);
-
-  useEffect(() => {
-    selectedImgSrc();
-  }, [selectedImgSrc]);
-
-  const Image = useCallback(() => {
-    return (
-      <img
-        src={imgScr}
-        onLoad={() => {
-          return <LoadingSpinner />;
-        }}
-        alt="img"
-      />
-    );
-  }, [imgScr]);
-
   const authorsString = convertArrayToString(authorsArray, ', ');
 
   const categoriesString = convertArrayToString(categoriesArray, ' / ');
@@ -73,7 +45,10 @@ export function BookDetails({
       <BookDetailsWrapper>
         <BookDetailsContainer>
           <BookImgWrapper>
-            <Image />
+            <BookDetailsImage
+              thumbnail={imageLinks?.thumbnail}
+              smallThumbnail={imageLinks?.smallThumbnail}
+            />
           </BookImgWrapper>
           <BookInformation>
             <BookText color="var(--color-gray-500)" fontSize="16px">
@@ -95,7 +70,7 @@ export function BookDetails({
       </BookDetailsWrapper>
     );
   }, [
-    Image,
+    BookDetailsImage,
     authorsString,
     canonicalVolumeLink,
     categoriesString,
