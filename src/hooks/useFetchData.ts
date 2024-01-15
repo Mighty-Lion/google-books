@@ -34,9 +34,9 @@ export interface IBookInfoProps {
     containsEpubBubbles?: false;
     containsImageBubbles?: false;
   };
-  imageLinks?: {
-    smallThumbnail?: string;
-    thumbnail?: string;
+  imageLinks: {
+    smallThumbnail: string;
+    thumbnail: string;
   };
   language?: string;
   previewLink?: string;

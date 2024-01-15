@@ -10,14 +10,13 @@ export function BookDetailsImage({
   thumbnail,
   smallThumbnail,
 }: IBookDetailsImageProps) {
-  const selectedImgSrc = useCallback(() => {
+  const selectImgSrc = useCallback(() => {
     if (thumbnail) {
       return thumbnail;
     }
     if (smallThumbnail) {
       return smallThumbnail;
     }
-
     return SearchIcon;
   }, [smallThumbnail, thumbnail]);
 
@@ -26,6 +25,6 @@ export function BookDetailsImage({
   };
 
   return useMemo(() => {
-    return <img src={selectedImgSrc()} onLoad={onLoadImage} alt="img" />;
-  }, [selectedImgSrc]);
+    return <img src={selectImgSrc()} onLoad={onLoadImage} alt="img" />;
+  }, [selectImgSrc]);
 }
