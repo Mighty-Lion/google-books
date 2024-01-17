@@ -2,11 +2,9 @@ import { useState } from 'react';
 import { SearchSection } from '@/components/SearchSection';
 import { useFormData } from '@/hooks/useFormData';
 import { IBookProps, useFetchData } from '@/hooks/useFetchData';
-import { BooksSection } from '@/components/BooksSection';
-import { BookDetails } from '@/components/BookDetails';
-import { getRandomArbitrary } from '@/functions/getRandomArbitrary';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
 import { HomeContainer } from '@/pages/Home/index.styles';
+import { MainContent } from '@/components/BookDetails/partials/MainContent';
 
 export default function Home() {
   const {
@@ -21,7 +19,6 @@ export default function Home() {
   const [selectedBook, setSelectedBook] = useState<IBookProps | undefined>(
     undefined
   );
-
   const { setScrollPosition } = useScrollPosition(selectedBook);
 
   return (
@@ -32,23 +29,17 @@ export default function Home() {
         handleEnter={handleEnter}
         handleChangeSelect={handleChangeSelect}
       />
-      {selectedBook ? (
-        <BookDetails
-          selectedBook={selectedBook}
-          setSelectedBookId={setSelectedBook}
-        />
-      ) : (
-        <BooksSection
-          key={getRandomArbitrary(0, 1000)}
-          books={books}
-          isLastPage={isLastPage}
-          isFetching={isFetching}
-          handleUpdate={handleUpdate}
-          setSelectedBook={setSelectedBook}
-          setScrollPosition={setScrollPosition}
-          totalItems={totalItems}
-        />
-      )}
+      <MainContent
+        setScrollPosition={setScrollPosition}
+        totalItems={totalItems}
+        setSelectedBook={setSelectedBook}
+        selectedBook={selectedBook}
+        books={books}
+        isLastPage={isLastPage}
+        isFetching={isFetching}
+        handleUpdate={handleUpdate}
+        key="145236977"
+      />
     </HomeContainer>
   );
 }
