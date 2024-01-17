@@ -5,14 +5,15 @@ import {
   TextWrapper,
 } from '@/components/BooksSection/partials/BookCard/index.styles';
 import { Text, TextBold } from '@/components/Text/index.styles';
+import { IBookProps } from '@/hooks/useFetchData';
 
 export interface IBookCardProps {
-  id: string;
   img: string | undefined;
   category?: string[] | undefined;
   name?: string | undefined;
   author?: string | undefined;
-  setSelectedBookId: Dispatch<SetStateAction<string | undefined>>;
+  book: IBookProps;
+  setSelectedBook: Dispatch<SetStateAction<IBookProps | undefined>>;
   setScrollPosition: Dispatch<SetStateAction<number>>;
 }
 
@@ -21,15 +22,15 @@ export const BookCard = ({
   category,
   author,
   name,
-  id,
-  setSelectedBookId,
+  book,
+  setSelectedBook,
   setScrollPosition,
 }: IBookCardProps) => {
   return useMemo(() => {
     return (
       <BookCardContainer
         onClick={() => {
-          setSelectedBookId(id);
+          setSelectedBook(book);
           setScrollPosition(window.scrollY);
         }}
       >
@@ -47,5 +48,5 @@ export const BookCard = ({
         </TextWrapper>
       </BookCardContainer>
     );
-  }, [img, category, name, author, setSelectedBookId, id, setScrollPosition]);
+  }, [img, category, name, author, setSelectedBook, setScrollPosition]);
 };

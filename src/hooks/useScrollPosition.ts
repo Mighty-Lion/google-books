@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
+import { IBookProps } from '@/hooks/useFetchData';
 
-export function useScrollPosition(selectedBookId: string | undefined) {
+export function useScrollPosition(selectedBook: IBookProps | undefined) {
   const [scrollPosition, setScrollPosition] = useState(0);
 
   useEffect(() => {
-    if (!selectedBookId) {
+    if (!selectedBook) {
       window.scrollTo(0, scrollPosition);
     }
-  }, [selectedBookId]);
+  }, [selectedBook]);
 
   return { setScrollPosition };
 }

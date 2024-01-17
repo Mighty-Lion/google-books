@@ -18,11 +18,12 @@ import {
 import { IBookProps } from '@/hooks/useFetchData';
 import { Button } from '@/components/Button/index.styles';
 import { convertArrayToString } from '@/functions/convertArrayToString';
-import { BookDetailsImage } from '@/components/BookDetails/partials/BookDetailsImage';
+import SearchIcon from '@/assets/images/svg/search.svg';
+import { LoadingSpinner } from '@/components/LoadingSpiner';
 
 interface IBookDetailsProps {
   selectedBook: IBookProps | undefined;
-  setSelectedBookId: Dispatch<SetStateAction<string | undefined>>;
+  setSelectedBookId: Dispatch<SetStateAction<IBookProps | undefined>>;
 }
 export function BookDetails({
   selectedBook,
@@ -48,9 +49,16 @@ export function BookDetails({
       <BookDetailsWrapper>
         <BookDetailsContainer>
           <BookImgWrapper>
-            <BookDetailsImage
-              thumbnail={imageLinks?.thumbnail}
-              smallThumbnail={imageLinks?.smallThumbnail}
+            <img
+              src={
+                imageLinks?.thumbnail ||
+                imageLinks?.smallThumbnail ||
+                SearchIcon
+              }
+              onLoad={() => {
+                return <LoadingSpinner />;
+              }}
+              alt="img"
             />
           </BookImgWrapper>
           <BookInformation>
@@ -73,10 +81,11 @@ export function BookDetails({
       </BookDetailsWrapper>
     );
   }, [
-    BookDetailsImage,
     authorsString,
     canonicalVolumeLink,
     categoriesString,
+    imageLinks?.smallThumbnail,
+    imageLinks?.thumbnail,
     setSelectedBookId,
     title,
   ]);
