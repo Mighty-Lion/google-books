@@ -16,11 +16,11 @@ import { LoadingSpinner } from '@/components/LoadingSpiner';
 
 interface IBookDetailsProps {
   selectedBook: IBookProps;
-  setSelectedBookId: Dispatch<SetStateAction<IBookProps | undefined>>;
+  setSelectedBook: Dispatch<SetStateAction<IBookProps | undefined>>;
 }
 export function BookDetails({
   selectedBook,
-  setSelectedBookId,
+  setSelectedBook,
 }: IBookDetailsProps) {
   const { title, imageLinks, authors, categories, canonicalVolumeLink } =
     selectedBook.volumeInfo;
@@ -60,7 +60,7 @@ export function BookDetails({
             <BookButtonWrapper>
               <Button
                 type="button"
-                onClick={() => setSelectedBookId(undefined)}
+                onClick={() => setSelectedBook(undefined)}
               >
                 Back
               </Button>
@@ -75,7 +75,7 @@ export function BookDetails({
     categoriesString,
     imageLinks?.smallThumbnail,
     imageLinks?.thumbnail,
-    setSelectedBookId,
+    setSelectedBook,
     title,
   ]);
 }
