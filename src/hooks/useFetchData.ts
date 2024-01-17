@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { log } from 'util';
 import { useToastNotifications } from '@/components/ToastMessage/useToastNotifications';
@@ -73,11 +73,6 @@ export interface IBookProps {
   };
 }
 
-export interface IDataProps {
-  items: IBookProps[];
-  kind: string;
-  totalItems: number;
-}
 
 export function useFetchData({
   searchParams,
@@ -112,9 +107,9 @@ export function useFetchData({
     }
   }, [searchParams, category, sorting]);
 
-  const handleUpdate = () => {
+  const handleUpdate = useCallback(() => {
     setStartId((prev) => prev + limit);
-  };
+  }, []);
 
   const searchFilter = `${
     filters.searchParams !== '' ? `${filters.searchParams}+` : ''
@@ -149,7 +144,6 @@ export function useFetchData({
       } else {
         setIsLastPage(false);
       }
-
     } catch (error) {
       let errorMessage = 'Failed to do something exceptional';
       if (error instanceof Error) {
