@@ -97,5 +97,12 @@ export function BooksSection({
         )}
       </BooksSectionWrapper>
     );
-  }, [totalItems, handleUpdate, isFetching, isLastPage, mappedBooks]);
+  }, [
+    totalItems,
+    books.length,
+    mappedBooks,
+    isLastPage,
+    isFetching,
+    handleUpdate,
+  ]);
 }
