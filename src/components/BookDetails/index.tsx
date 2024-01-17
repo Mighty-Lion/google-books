@@ -35,12 +35,12 @@ export function BookDetails({
   const categoriesArray = selectedBook?.volumeInfo?.categories;
   const canonicalVolumeLink = selectedBook?.volumeInfo.canonicalVolumeLink;
 
-  const authorsString = useCallback(() => {
-    convertArrayToString(authorsArray, ', ');
+  const authorsString = useMemo(() => {
+    return convertArrayToString(authorsArray, ', ');
   }, [authorsArray]);
 
-  const categoriesString = useCallback(() => {
-    convertArrayToString(categoriesArray, ' / ');
+  const categoriesString = useMemo(() => {
+    return convertArrayToString(categoriesArray, ' / ');
   }, [categoriesArray]);
 
   return useMemo(() => {
