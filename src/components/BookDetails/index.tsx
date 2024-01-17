@@ -1,11 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { Dispatch, SetStateAction, useMemo } from 'react';
 import {
   BookButtonWrapper,
   BookDetailsContainer,
@@ -22,27 +15,23 @@ import SearchIcon from '@/assets/images/svg/search.svg';
 import { LoadingSpinner } from '@/components/LoadingSpiner';
 
 interface IBookDetailsProps {
-  selectedBook: IBookProps | undefined;
+  selectedBook: IBookProps;
   setSelectedBookId: Dispatch<SetStateAction<IBookProps | undefined>>;
 }
 export function BookDetails({
   selectedBook,
   setSelectedBookId,
 }: IBookDetailsProps) {
-  console.log('selectedBook', selectedBook);
-  const title = selectedBook?.volumeInfo?.title;
-  const imageLinks = selectedBook?.volumeInfo.imageLinks;
-  const authorsArray = selectedBook?.volumeInfo?.authors;
-  const categoriesArray = selectedBook?.volumeInfo?.categories;
-  const canonicalVolumeLink = selectedBook?.volumeInfo.canonicalVolumeLink;
+  const { title, imageLinks, authors, categories, canonicalVolumeLink } =
+    selectedBook.volumeInfo;
 
   const authorsString = useMemo(() => {
-    return convertArrayToString(authorsArray, ', ');
-  }, [authorsArray]);
+    return convertArrayToString(authors, ', ');
+  }, [authors]);
 
   const categoriesString = useMemo(() => {
-    return convertArrayToString(categoriesArray, ' / ');
-  }, [categoriesArray]);
+    return convertArrayToString(categories, ' / ');
+  }, [categories]);
 
   return useMemo(() => {
     return (
