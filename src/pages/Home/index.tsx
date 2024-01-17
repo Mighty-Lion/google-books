@@ -32,7 +32,12 @@ export default function Home() {
         handleEnter={handleEnter}
         handleChangeSelect={handleChangeSelect}
       />
-      {selectedBook === undefined ? (
+      {selectedBook ? (
+        <BookDetails
+          selectedBook={selectedBook}
+          setSelectedBookId={setSelectedBook}
+        />
+      ) : (
         <BooksSection
           key={getRandomArbitrary(0, 1000)}
           books={books}
@@ -42,11 +47,6 @@ export default function Home() {
           setSelectedBook={setSelectedBook}
           setScrollPosition={setScrollPosition}
           totalItems={totalItems}
-        />
-      ) : (
-        <BookDetails
-          selectedBook={selectedBook}
-          setSelectedBookId={setSelectedBook}
         />
       )}
     </HomeContainer>
