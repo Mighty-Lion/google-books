@@ -14,10 +14,10 @@ import { CustomSelect } from '@/components/CustomSelect';
 import { SearchInput } from '../SearchInput';
 
 export interface ISearchSectionProps {
-  handleChange: ChangeEventHandler<HTMLInputElement>;
-  handleSubmit: FormEventHandler<HTMLFormElement>;
-  handleEnter: KeyboardEventHandler<HTMLInputElement>;
-  handleChangeSelect: ChangeEventHandler<HTMLSelectElement>;
+  handleChange?: ChangeEventHandler<HTMLInputElement>;
+  handleSubmit?: FormEventHandler<HTMLFormElement>;
+  handleEnter?: KeyboardEventHandler<HTMLInputElement>;
+  handleChangeSelect?: ChangeEventHandler<HTMLSelectElement>;
 }
 export function SearchSection({
   handleChange,
