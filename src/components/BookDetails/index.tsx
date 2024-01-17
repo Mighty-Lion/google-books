@@ -18,7 +18,7 @@ import {
 import { IBookProps } from '@/hooks/useFetchData';
 import { Button } from '@/components/Button/index.styles';
 import { convertArrayToString } from '@/functions/convertArrayToString';
-import { BookDetailsImage } from "@/components/BookDetails/partials/BookDetailsImage";
+import { BookDetailsImage } from '@/components/BookDetails/partials/BookDetailsImage';
 
 interface IBookDetailsProps {
   selectedBook: IBookProps | undefined;
@@ -28,16 +28,20 @@ export function BookDetails({
   selectedBook,
   setSelectedBookId,
 }: IBookDetailsProps) {
-  console.log('selectedBook', selectedBook)
+  console.log('selectedBook', selectedBook);
   const title = selectedBook?.volumeInfo?.title;
   const imageLinks = selectedBook?.volumeInfo.imageLinks;
   const authorsArray = selectedBook?.volumeInfo?.authors;
   const categoriesArray = selectedBook?.volumeInfo?.categories;
   const canonicalVolumeLink = selectedBook?.volumeInfo.canonicalVolumeLink;
 
-  const authorsString = convertArrayToString(authorsArray, ', ');
+  const authorsString = useCallback(() => {
+    convertArrayToString(authorsArray, ', ');
+  }, [authorsArray]);
 
-  const categoriesString = convertArrayToString(categoriesArray, ' / ');
+  const categoriesString = useCallback(() => {
+    convertArrayToString(categoriesArray, ' / ');
+  }, [categoriesArray]);
 
   return useMemo(() => {
     return (
