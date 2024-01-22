@@ -24,12 +24,16 @@ export const MainContent = memo(function MainContent({
   setSelectedBook,
   setScrollPosition,
 }: IContentProps) {
-  return selectedBook ? (
-    <BookDetails
-      selectedBook={selectedBook}
-      setSelectedBook={setSelectedBook}
-    />
-  ) : (
+  if (selectedBook) {
+    return (
+      <BookDetails
+        selectedBook={selectedBook}
+        setSelectedBook={setSelectedBook}
+      />
+    );
+  }
+
+  return (
     <BooksSection
       key={getRandomArbitrary(0, 1000)}
       books={books}

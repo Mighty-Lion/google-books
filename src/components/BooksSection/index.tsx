@@ -63,11 +63,9 @@ export function BooksSection({
   return useMemo(() => {
     return (
       <BooksSectionWrapper>
-        {totalItems ? (
-          <FoundedResults>Found {totalItems} results</FoundedResults>
-        ) : (
-          <FoundedResults>Found {books.length} results</FoundedResults>
-        )}
+        <FoundedResults>
+          Found {totalItems || books.length} results
+        </FoundedResults>
         <BooksSectionContainer>
           {mappedBooks}
           <ToTopButtonWrapper>
@@ -87,11 +85,11 @@ export function BooksSection({
         {!isLastPage && (
           <LoadingWrapper>
             {!isFetching ? (
+              <LoadingSpinner />
+            ) : (
               <Button type="button" onClick={handleUpdate}>
                 Load more ...
               </Button>
-            ) : (
-              <LoadingSpinner />
             )}
           </LoadingWrapper>
         )}
