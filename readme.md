@@ -1,6 +1,5 @@
-# Стартовый шаблон
+Данный проект включает:
 
-Данный шаблон включает:
 1. React + TS
 2. eslint + prettier
 3. react-router
@@ -9,10 +8,9 @@
 6. axios
 7. formik
 8. yup
-9. faker-js
-10. framer-motion
-11. vitest
-12. jest
+9. framer-motion
+10. vitest
+
 
 dev версия запускается командой npm run dev / yarn dev
-Для тестов используется команда npm run test / yarn test
+
